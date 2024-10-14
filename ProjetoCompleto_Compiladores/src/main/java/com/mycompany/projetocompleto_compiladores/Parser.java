@@ -77,7 +77,7 @@ public class Parser
     
     public boolean operador()
     {
-        if(matchL(">") || matchL(">") || matchL("=="))
+        if(matchL(">") || matchL("<") || matchL("==") || matchL(">=") || matchL("<="))
         {
             return true;
         }
@@ -93,6 +93,40 @@ public class Parser
         erro("condicao");
         return false;
     }
+    
+    
+    public boolean atribuicao()
+    {
+        if(matchT("reservada_tipo_inteiro") && matchT("id") && matchL("=") && matchT("num"))
+        {
+            return true;
+        }
+        
+        if(matchT("reservada_tipo_decimal") && matchT("id") && matchL("=") && matchT("decimal"))
+        {
+            return true;
+        }
+        
+        if(matchT("reservada_tipo_texto") && matchT("id") && matchL("=") && matchT("string"))
+        {
+            return true;
+        }
+        
+        if(matchT("reservada_tipo_caracter") && matchT("id") && matchL("=") && matchT("char"))
+        {
+            return true;
+        }
+        
+        if(matchT("reservada_tipo_booleano") && matchT("id") && matchL("=") && matchT("bool"))
+        {
+            return true;
+        }
+        
+        erro("atribuicao");
+        return false;
+    }
+    
+    
     
     public boolean expressao()
     {
@@ -117,6 +151,16 @@ public class Parser
     public boolean enquanto()
     {
        if(matchL("while") && condicao() && matchL(":") && expressao())
+       {
+           return true;
+       }
+       erro("enquanto");
+       return false;
+    }
+    
+    public boolean para()
+    {
+       if(matchL("for") && condicao() && matchL(":") && expressao())
        {
            return true;
        }

@@ -20,6 +20,11 @@ public class MathOperator extends AFD
                
            case '*':
                code.next();
+               if(code.current() == '*')
+               {
+                 code.next();
+                 return new Token("operador_potencia", ">**");
+               }
                return new Token("operador_multiplicacao", "*");
                
            case '/':
