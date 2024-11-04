@@ -22,6 +22,7 @@ public class Parser
     
     private void erro(String regra)
     {
+        System.out.println("Sintaticamente Incorreto");
         System.out.println("Regra: " + regra);
         System.out.println("Token Invalido: " + token.lexema);
         System.exit(0);
@@ -86,7 +87,7 @@ public class Parser
     
     public boolean condicao()
     {
-        if(matchT("id") && operador() && matchT("num"))
+        if(matchT("id") && operador() && (matchT("num") || matchT("tipo_booleano") || matchT("string") || matchT("char")))
         {
             return true;
         }
@@ -130,7 +131,7 @@ public class Parser
     
     public boolean expressao()
     {
-        if(matchT("id") && matchL("=") && matchT("num"))
+        if(matchT("id") && matchL("=") && (matchT("num") || matchT("tipo_booleano") || matchT("string") || matchT("char")))
         {
             return true;
         }

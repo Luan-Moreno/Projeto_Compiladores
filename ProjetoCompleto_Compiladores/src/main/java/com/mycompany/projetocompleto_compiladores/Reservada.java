@@ -50,6 +50,16 @@ public class Reservada extends AFD
             return new Token("reservada_tipo_booleano", "bool");
         }
         
+        if(matchC(code, 'T') && matchC(code, 'r')  && matchC(code, 'u')  && matchC(code, 'e'))
+        {
+            return new Token("tipo_booleano", "True");
+        }
+        
+        if(matchC(code, 'F') && matchC(code, 'a')  && matchC(code, 'l')  && matchC(code, 's') && matchC(code, 'e'))
+        {
+            return new Token("tipo_booleano", "False");
+        }
+        
         return null;
       }
       
