@@ -20,7 +20,7 @@ public class Lexer
         afds.add(new Number());
         afds.add(new Reservada());
         afds.add(new Variable());
-        
+        afds.add(new Text());
     }
     
     public void skipWhiteSpace()
