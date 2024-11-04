@@ -7,7 +7,7 @@ public class Main
     public static void main(String[] args) 
     {
         List<Token> tokens = new ArrayList<>();
-        String data = "if x > 7 then x = 20 else x = 10";
+        String data = "if x > 7.99 then x = .51 else x = .72";
         
         Lexer lexer = new Lexer(data);
         tokens = lexer.getTokens();
@@ -18,22 +18,6 @@ public class Main
         }
         
         System.out.println("Lexicamente Correto");
-        
-        //Teste com Se() / ifelse()
-        
-        /*tokens.add(new Token("reservada_if", "if"));
-        tokens.add(new Token("id", "soma"));
-        tokens.add(new Token("operador_condicional", ">"));
-        tokens.add(new Token("num", "5"));
-        tokens.add(new Token("reservada_then", "then"));
-        tokens.add(new Token("id", "soma"));
-        tokens.add(new Token("operador_atribuicao", "="));
-        tokens.add(new Token("num", "3"));
-        tokens.add(new Token("reservada_else", "else"));
-        tokens.add(new Token("id", "soma"));
-        tokens.add(new Token("operador_atribuicao", "="));
-        tokens.add(new Token("num", "2"));
-        tokens.add(new Token("EOF", "$")); */
 
         Parser parser = new Parser(tokens);
         parser.main();
