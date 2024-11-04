@@ -20,7 +20,13 @@ public class Variable extends AFD
     private String readVariable(CharacterIterator code)
     {
         String variable="";
-        while(Character.isLetter(code.current()))
+        if(Character.isLetter(code.current()))
+        {
+            variable += code.current();
+            code.next();
+        }
+        
+        while(Character.isLetterOrDigit(code.current()))
         {
             variable += code.current();
             code.next();
