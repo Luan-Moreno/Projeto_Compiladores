@@ -31,29 +31,17 @@ public class Parser
     public void main() 
     {
        token = getNextToken();
-       if(ifelse())
+       if(ifelse(false) || enquanto(false) || para(false))
        {
           if(token.tipo.equals("EOF"))
           {
               System.out.println("Sintaticamente Correto");
-          }
-          else
-          {
-              erro("EOF");
           }
        }
-       
-       /*if(enquanto())
+       else
        {
-          if(token.tipo.equals("EOF"))
-          {
-              System.out.println("Sintaticamente Correto");
-          }
-          else
-          {
-              erro("EOF");
-          }
-       }*/
+           erro("EOF");
+       }
     }
     
     public boolean matchL(String lexema)
@@ -76,27 +64,34 @@ public class Parser
         return false;
     }
     
-    public boolean operador()
+    public boolean operador(boolean erro)
     {
         if(matchL(">") || matchL("<") || matchL("==") || matchL(">=") || matchL("<="))
         {
             return true;
         }
+        if(erro)
+        {
+            erro("operador");
+        }
         return false;
     }
     
-    public boolean condicao()
+    public boolean condicao(boolean erro)
     {
-        if(matchT("id") && operador() && (matchT("num") || matchT("tipo_booleano") || matchT("string") || matchT("char")))
+        if(matchT("id") && operador(true) && (matchT("num") || matchT("tipo_booleano") || matchT("string") || matchT("char")))
         {
             return true;
         }
-        erro("condicao");
+        if(erro)
+        {
+            erro("condicao");
+        }
         return false;
     }
     
     
-    public boolean atribuicao()
+    public boolean atribuicao(boolean erro)
     {
         if(matchT("reservada_tipo_inteiro") && matchT("id") && matchL("=") && matchT("num"))
         {
@@ -122,58 +117,94 @@ public class Parser
         {
             return true;
         }
-        
-        erro("atribuicao");
+        if(erro)
+        {
+            erro("atribuicao");
+        }
         return false;
     }
     
     
     
-    public boolean expressao()
+    public boolean expressao(boolean erro)
     {
         if(matchT("id") && matchL("=") && (matchT("num") || matchT("tipo_booleano") || matchT("string") || matchT("char")))
         {
             return true;
         }
-        erro("expressao");
+        if(erro)
+        {
+            erro("expressao");
+        }
         return false;
     }
     
-    public boolean ifelse()
+    public boolean somatorio(boolean erro)
     {
-        if(matchL("if") && condicao() && matchL("then") && expressao())
+        if(matchT("id") && (matchL("+") || matchL("-")) && (matchL("+") || matchL("-")))
         {
-            if(matchL("else")) 
-            {
-                if (ifelse()) 
-                {
-                    return true;
-                } 
-                else return expressao();
-            }
             return true;
         }
-        erro("ifelse");
+        if(erro)
+        {
+           erro("somatorio"); 
+        }
         return false;
     }
     
-    public boolean enquanto()
+    public boolean ifelse(boolean erro)
     {
-       if(matchL("while") && condicao() && matchL(":") && expressao())
+        if(matchL("if") && condicao(true) && matchL("then"))
+        {
+            if(expressao(false) || ifelse(false) || enquanto(false) || para(false))
+            {
+                if(matchL("else")) 
+                {
+                    if(expressao(false) || ifelse(false) || enquanto(false) || para(false)) 
+                    {
+                        return true;
+                    } 
+                else return expressao(true);
+                }
+                return true;
+            }
+        }
+        if(erro)
+        {
+            erro("ifelse");
+        }
+        return false;
+    }
+    
+    public boolean enquanto(boolean erro)
+    {
+       if(matchL("while") && condicao(true) && matchL(":"))
        {
-           return true;
+           if(expressao(false) || ifelse(false) || enquanto(false) || para(false))
+           {
+               return true;
+           }
        }
-       erro("enquanto");
+       if(erro)
+       {
+           erro("enquanto");
+       }  
        return false;
     }
     
-    public boolean para()
+    public boolean para(boolean erro)
     {
-       if(matchL("for") && condicao() && matchL(":") && expressao())
+       if(matchL("for") && matchL("(") && atribuicao(true) && matchL(";") && condicao(true) && matchL(";") && somatorio(true) && matchL(")")  && matchL(":"))
        {
-           return true;
+           if(expressao(false) || ifelse(false) || enquanto(false) || para(false))
+           {
+               return true;
+           }
        }
-       erro("enquanto");
+       if(erro)
+       {
+           erro("para");
+       }
        return false;
     }
     
