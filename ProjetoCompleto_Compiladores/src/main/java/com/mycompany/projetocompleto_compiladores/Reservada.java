@@ -32,13 +32,7 @@ public class Reservada extends AFD
         
         if(matchC(code, 'f') && matchC(code, 'o') && matchC(code, 'r') && matchC(code, ' '))
         {
-            return new Token("reservada", "then");
-        }
-        
-        
-        if(matchC(code, 't') && matchC(code, 'h') && matchC(code, 'e') && matchC(code, 'n') && matchC(code, ' '))
-        {
-            return new Token("reservada", "then");
+            return new Token("reservada", "for");
         }
         
         if(matchC(code, 'i') && matchC(code, 'n') && matchC(code, 't') && matchC(code, ' '))
