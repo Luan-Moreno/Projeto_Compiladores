@@ -37,7 +37,7 @@ public class Node
         Node newNode = new Node(nodeName);
         newNode.enter = enter;
         newNode.exit = exit;
-        nodes.add(newNode);
+        nodes.add(newNode); 
         return newNode;
     }
 

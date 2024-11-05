@@ -28,20 +28,25 @@ public class Parser
         System.exit(0);
     }
     
-    public void main() 
+    public Tree mainParse() 
     {
        token = getNextToken();
-       if(ifelse(false) || enquanto(false) || para(false))
+       Node root = new Node("programa");
+       
+       if(ifelse(root))
        {
           if(token.tipo.equals("EOF"))
           {
               System.out.println("Sintaticamente Correto");
+              root.addNode("fim do programa");
+              return new Tree(root);
           }
        }
        else
        {
            erro("EOF");
        }
+       return null;
     }
     
     public boolean matchL(String lexema)
@@ -51,6 +56,18 @@ public class Parser
             token = getNextToken();
             return true;
         }
+        return false;
+    }
+    
+    public boolean matchL(String lexema, Node node)
+    {
+        if(token.lexema.equals(lexema))
+        {
+            node.addNode(token.lexema);
+            token = getNextToken();
+            return true;
+        }
+        node.addNode("ERROR: Expected " + lexema + " Received: " + token.lexema);
         return false;
     }
     
@@ -64,146 +81,112 @@ public class Parser
         return false;
     }
     
-    public boolean operador(boolean erro)
+    public boolean matchT(String tipo, Node node)
     {
-        if(matchL(">") || matchL("<") || matchL("==") || matchL(">=") || matchL("<="))
+        if(token.tipo.equals(tipo))
         {
+            node.addNode(token.lexema);
+            token = getNextToken();
             return true;
         }
-        if(erro)
-        {
-            erro("operador");
-        }
+        node.addNode("ERROR: Expected " + tipo + " Received: " + token.tipo);
         return false;
     }
     
-    public boolean condicao(boolean erro)
+    public boolean id(Node node)
     {
-        if(matchT("id") && operador(true) && (matchT("num") || matchT("tipo_booleano") || matchT("string") || matchT("char")))
-        {
-            return true;
-        }
-        if(erro)
-        {
-            erro("condicao");
-        }
-        return false;
+        Node id = node.addNode("id");
+        return matchT("id", id);
+    }
+    
+    public boolean num(Node node)
+    {
+        Node num = node.addNode("num");
+        return matchT("num", num);
+    }
+    
+    public boolean operador(Node node)
+    {
+        Node operador = node.addNode("operador");
+        return matchL(">", operador) || matchL("<", operador) || 
+               matchL("==", operador) || matchL(">=", operador) || matchL("<=", operador);
+    }
+    
+    public boolean condicao(Node node)
+    {
+        Node condicao = node.addNode("condicao");
+        return id(condicao) && operador(condicao) && num(condicao);
     }
     
     
-    public boolean atribuicao(boolean erro)
+    public boolean atribuicao(Node node)
     {
-        if(matchT("reservada_tipo_inteiro") && matchT("id") && matchL("=") && matchT("num"))
-        {
-            return true;
-        }
-        
-        if(matchT("reservada_tipo_decimal") && matchT("id") && matchL("=") && matchT("decimal"))
-        {
-            return true;
-        }
-        
-        if(matchT("reservada_tipo_texto") && matchT("id") && matchL("=") && matchT("string"))
-        {
-            return true;
-        }
-        
-        if(matchT("reservada_tipo_caracter") && matchT("id") && matchL("=") && matchT("char"))
-        {
-            return true;
-        }
-        
-        if(matchT("reservada_tipo_booleano") && matchT("id") && matchL("=") && matchT("bool"))
-        {
-            return true;
-        }
-        if(erro)
-        {
-            erro("atribuicao");
-        }
-        return false;
+        Node atribuicao = node.addNode("atribuicao");
+        return matchT("reservada_tipo_inteiro", atribuicao) && matchT("id", atribuicao) && matchL("=", atribuicao) && matchT("num", atribuicao) ||
+               matchT("reservada_tipo_decimal", atribuicao) && matchT("id", atribuicao) && matchL("=", atribuicao) && matchT("decimal", atribuicao) ||
+               matchT("reservada_tipo_texto", atribuicao) && matchT("id", atribuicao) && matchL("=", atribuicao) && matchT("string", atribuicao) ||
+               matchT("reservada_tipo_caracter", atribuicao) && matchT("id", atribuicao) && matchL("=", atribuicao) && matchT("char", atribuicao) ||
+               matchT("reservada_tipo_booleano", atribuicao) && matchT("id", atribuicao) && matchL("=", atribuicao) && matchT("bool", atribuicao);
     }
     
     
-    
-    public boolean expressao(boolean erro)
+    public boolean expressao(Node node)
     {
-        if(matchT("id") && matchL("=") && (matchT("num") || matchT("tipo_booleano") || matchT("string") || matchT("char")))
-        {
-            return true;
-        }
-        if(erro)
-        {
-            erro("expressao");
-        }
-        return false;
+        Node expressao = node.addNode("expressao");
+        return matchT("id", expressao) && matchL("=", expressao) && (matchT("num", expressao) || 
+               matchT("tipo_booleano", expressao) || matchT("string", expressao) || matchT("char", expressao));
     }
     
-    public boolean somatorio(boolean erro)
+    public boolean somatorio(Node node)
     {
-        if(matchT("id") && (matchL("+") || matchL("-")) && (matchL("+") || matchL("-")))
-        {
-            return true;
-        }
-        if(erro)
-        {
-           erro("somatorio"); 
-        }
-        return false;
+        Node somatorio = node.addNode("somatorio");
+        return matchT("id", somatorio) && (matchL("+", somatorio) || matchL("-", somatorio)) && (matchL("+", somatorio) || matchL("-", somatorio));
     }
     
-    public boolean ifelse(boolean erro)
+    public boolean ifelse(Node node)
     {
-        if(matchL("if") && condicao(true) && matchL("then"))
-        {
-            if(expressao(false) || ifelse(false) || enquanto(false) || para(false))
+        Node ifelse = node.addNode("ifelse");
+        return matchL("if", ifelse) && condicao(ifelse) && matchL("then", ifelse);
+        /*{
+            if(expressao(ifelse) || ifelse(ifelse) || enquanto(ifelse) || para(ifelse))
             {
                 if(matchL("else")) 
                 {
-                    if(expressao(false) || ifelse(false) || enquanto(false) || para(false)) 
+                    if(expressao(ifelse) || ifelse(ifelse) || enquanto(ifelse) || para(ifelse)) 
                     {
                         return true;
                     } 
-                else return expressao(true);
+                else return expressao(ifelse);
                 }
                 return true;
             }
         }
-        if(erro)
-        {
-            erro("ifelse");
-        }
-        return false;
+        return false;*/
     }
     
-    public boolean enquanto(boolean erro)
+    public boolean enquanto(Node node)
     {
-       if(matchL("while") && condicao(true) && matchL(":"))
+       Node enquanto = node.addNode("enquanto");
+       if(matchL("while", enquanto) && condicao(enquanto) && matchL(":", enquanto))
        {
-           if(expressao(false) || ifelse(false) || enquanto(false) || para(false))
+           if(expressao(enquanto) || ifelse(enquanto) || enquanto(enquanto) || para(enquanto))
            {
                return true;
            }
        }
-       if(erro)
-       {
-           erro("enquanto");
-       }  
        return false;
     }
     
-    public boolean para(boolean erro)
+    public boolean para(Node node)
     {
-       if(matchL("for") && matchL("(") && atribuicao(true) && matchL(";") && condicao(true) && matchL(";") && somatorio(true) && matchL(")")  && matchL(":"))
+       Node para = node.addNode("para");
+       if(matchL("for", para) && matchL("(", para) && atribuicao(para) && matchL(";", para) && condicao(para) && 
+         matchL(";", para) && somatorio(para) && matchL(")", para)  && matchL(":", para))
        {
-           if(expressao(false) || ifelse(false) || enquanto(false) || para(false))
+           if(expressao(para) || ifelse(para) || enquanto(para) || para(para))
            {
                return true;
            }
-       }
-       if(erro)
-       {
-           erro("para");
        }
        return false;
     }
