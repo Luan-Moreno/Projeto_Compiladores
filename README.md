@@ -4,8 +4,14 @@ Compilador criado na linguagem Java, utilizando a plataforma NetBeans
 
 Próximos Passos:
 
+Segunda-feira:
+- [X] Léxico: Criando o tipo Número (Int e Float)
+- [X] Léxico: Criando o tipo Texto (String e Char)
+- [X] Léxico: Criando o tipo Booleano (True/False)
+- [X] Sintático: Atualizando Gramática da Condição e da Expressão
+- [X] Sintático: Processamento correto de ifs encadeados
+
 Terça-feira:
-- [ ] Sintático: Processamento correto de ifs encadeados
 - [ ] Sintático: Criar o while()
 - [ ] Sintático: Criar o for()
 - [ ] Sintático: Processamento correto de laços encadeados
