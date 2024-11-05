@@ -12,42 +12,42 @@ public class Reservada extends AFD
 
         if(matchC(code, 'i') && matchC(code, 'f') && matchC(code, ' '))
         {
-            return new Token("reservada_if", "if");
+            return new Token("reservada", "if");
         }
         
         if(matchC(code, 'e') && matchC(code, 'l') && matchC(code, 's') && matchC(code, 'e') && matchC(code, ' '))
         {
-            return new Token("reservada_else", "else");
+            return new Token("reservada", "else");
         }
         
         if(matchC(code, 't') && matchC(code, 'h') && matchC(code, 'e') && matchC(code, 'n') && matchC(code, ' '))
         {
-            return new Token("reservada_then", "then");
+            return new Token("reservada", "then");
         }
         
         if(matchC(code, 'i') && matchC(code, 'n') && matchC(code, 't') && matchC(code, ' '))
         {
-            return new Token("reservada_tipo_inteiro", "int");
+            return new Token("reservada_tipo", "int");
         }
         
         if(matchC(code, 'f') && matchC(code, 'l')  && matchC(code, 'o')  && matchC(code, 'a') && matchC(code, 't') && matchC(code, ' '))
         {
-            return new Token("reservada_tipo_decimal", "float");
+            return new Token("reservada_tipo", "float");
         }
         
         if(matchC(code, 's') && matchC(code, 't')  && matchC(code, 'r')  && matchC(code, 'i') && matchC(code, 'n') && matchC(code, 'g') && matchC(code, ' '))
         {
-            return new Token("reservada_tipo_texto", "string");
+            return new Token("reservada_tipo", "string");
         }
         
         if(matchC(code, 'c') && matchC(code, 'h')  && matchC(code, 'a')  && matchC(code, 'r') && matchC(code, ' '))
         {
-            return new Token("reservada_tipo_caracter", "char");
+            return new Token("reservada_tipo", "char");
         }
         
         if(matchC(code, 'b') && matchC(code, 'o')  && matchC(code, 'o')  && matchC(code, 'l') && matchC(code, ' '))
         {
-            return new Token("reservada_tipo_booleano", "bool");
+            return new Token("reservada_tipo", "bool");
         }
         
         if(matchC(code, 'T') && matchC(code, 'r')  && matchC(code, 'u')  && matchC(code, 'e'))

@@ -7,7 +7,7 @@ public class Main
     public static void main(String[] args) 
     {
         List<Token> tokens = new ArrayList<>();
-        String data = "if x1 == \'a\' then x2 = 2.2 else x3 = True";
+        String data = "if x1 == \'a\' then x2 = 1.1 else if x1 == \'b\' then x2 = True else if x1 == \'c\' then x2 = 3";
         
         Lexer lexer = new Lexer(data);
         tokens = lexer.getTokens();

@@ -141,8 +141,16 @@ public class Parser
     
     public boolean ifelse()
     {
-        if(matchL("if") && condicao() && matchL("then") && expressao() && matchL("else") && expressao())
+        if(matchL("if") && condicao() && matchL("then") && expressao())
         {
+            if(matchL("else")) 
+            {
+                if (ifelse()) 
+                {
+                    return true;
+                } 
+                else return expressao();
+            }
             return true;
         }
         erro("ifelse");
