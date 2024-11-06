@@ -12,8 +12,9 @@ Segunda-feira:
 - [X] Sintático: Processamento correto de ifs encadeados
 
 Terça-feira:
-- [ ] Sintático: Criar o while()
-- [ ] Sintático: Criar o for()
+- [X] Sintático: Criar o while()
+- [X] Sintático: Criar o for()
+- [ ] Linguagem: Construir a AST (Árvore Sintática) [75%]
 - [ ] Sintático: Processamento correto de laços encadeados
 - [ ] Sintático: Garantir a precedência nas expressões matemáticas
 
@@ -26,7 +27,7 @@ Quarta-feira:
 
 Quinta-feira:
 - [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
-- [ ] Linguagem: Construir a AST (Árvore Sintática)
+
 - [ ] Compilador: Realizar a conversão para Python das palavras reservadas específicas
 - [ ] Compilador: Realizar a conversão para Python dos tipos específicas
 
