@@ -57,6 +57,14 @@ public class MathOperator extends AFD
                  return new Token("operador_comparacao", "==");
                }
                return new Token("operador_atribuicao", "=");
+               
+            case '!':
+               code.next();
+               if(code.current() == '=')
+               {
+                 code.next();
+                 return new Token("operador_diferente", "!=");
+               }
             
            case ':':
                code.next();

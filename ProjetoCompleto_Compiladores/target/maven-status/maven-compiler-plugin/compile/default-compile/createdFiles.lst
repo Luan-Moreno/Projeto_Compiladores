@@ -1,7 +1,12 @@
 com\mycompany\projetocompleto_compiladores\Number.class
+com\mycompany\projetocompleto_compiladores\Tree.class
+com\mycompany\projetocompleto_compiladores\Reservada.class
+com\mycompany\projetocompleto_compiladores\Node.class
 com\mycompany\projetocompleto_compiladores\Token.class
 com\mycompany\projetocompleto_compiladores\Main.class
 com\mycompany\projetocompleto_compiladores\Lexer.class
+com\mycompany\projetocompleto_compiladores\Text.class
 com\mycompany\projetocompleto_compiladores\Parser.class
 com\mycompany\projetocompleto_compiladores\AFD.class
 com\mycompany\projetocompleto_compiladores\MathOperator.class
+com\mycompany\projetocompleto_compiladores\Variable.class
