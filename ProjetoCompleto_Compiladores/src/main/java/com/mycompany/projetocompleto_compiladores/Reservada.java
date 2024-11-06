@@ -5,11 +5,12 @@ import java.text.CharacterIterator;
 
 public class Reservada extends AFD
     {
-    
+      private int posicaoInicial;
       @Override
       public Token evaluate(CharacterIterator code)
       {
-
+        this.posicaoInicial = code.getIndex();
+        
         if(matchC(code, 'i') && matchC(code, 'f') && matchC(code, ' '))
         {
             return new Token("reservada", "if");
@@ -80,6 +81,7 @@ public class Reservada extends AFD
             code.next();
             return true;
         }
+        code.setIndex(this.posicaoInicial);
         return false;
        }
     }

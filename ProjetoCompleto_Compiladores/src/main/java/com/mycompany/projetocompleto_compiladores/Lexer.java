@@ -16,11 +16,11 @@ public class Lexer
         tokens = new ArrayList<>();
         this.code = new StringCharacterIterator(code);
         afds = new ArrayList<>();
-        afds.add(new MathOperator());
-        afds.add(new Number());
         afds.add(new Reservada());
-        afds.add(new Variable());
+        afds.add(new Number());
+        afds.add(new MathOperator());
         afds.add(new Text());
+        afds.add(new Variable());
     }
     
     public void skipWhiteSpace()

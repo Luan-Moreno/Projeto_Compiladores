@@ -42,7 +42,7 @@ public class Parser
        token = getNextToken();
        Node root = new Node("início do programa");
        
-       if(ifelse(root))
+       if(atribuicao(root) || expressao(root) || conta(root) || ifelse(root))
        {
           if(token.tipo.equals("EOF"))
           {
@@ -127,7 +127,7 @@ public class Parser
         {
             return true;
         }
-        erroT("num", num);
+        //erroT("num", num);
         return false;
     }
     
@@ -144,10 +144,43 @@ public class Parser
         return false;
     }
     
+
+    public boolean conta(Node node)
+    {
+        Node conta = node.addNode("conta");
+
+        if (matchT("num", conta))
+        {
+            return contaOperacoes(conta);
+        }
+
+        return false;
+    }
+
+    private boolean contaOperacoes(Node node)
+    {
+        while (true)
+        {
+            if (NmatchL("+", node) || NmatchL("-", node) || NmatchL("*", node) 
+                || NmatchL("/", node) || NmatchL("**", node))
+            {
+                if (matchT("num", node))
+                {
+                    continue;
+                }
+                return false;
+            }
+            break;
+        }
+
+        return true;
+    }
+
+    
     public boolean condicao(Node node)
     {
         Node condicao = node.addNode("condicao");
-        return id(condicao) && operador(condicao) && num(condicao);
+        return id(condicao) && operador(condicao) && (NmatchT("tipo_booleano", condicao) || num(condicao));
     }
     
     
@@ -162,7 +195,7 @@ public class Parser
         {
             return true;
         }
-        erroT("Definition with correct types: int, float, string, char or bool", atribuicao);
+        //erroT("Definition with correct types: int, float, string, char or bool", atribuicao);
         return false;
     }
     
@@ -170,8 +203,9 @@ public class Parser
     public boolean expressao(Node node)
     {
         Node expressao = new Node("expressao");
-        if (NmatchT("id", expressao) && NmatchL("=", expressao) && (NmatchT("num", expressao) || 
-            NmatchT("tipo_booleano", expressao) || NmatchT("string", expressao) || NmatchT("char", expressao)))
+        if (NmatchT("id", expressao) && NmatchL("=", expressao) && 
+            (NmatchT("num", expressao) || NmatchT("tipo_booleano", expressao) || 
+            NmatchT("string", expressao) || NmatchT("char", expressao)))
         {
             node.addNode(expressao);
             return true;
@@ -197,6 +231,7 @@ public class Parser
     {
         //Node ifelse = node.addNode("ifelse");
         Node ifelse = new Node("ifelse");
+        Node temp = ifelse;
         if (NmatchL("if", ifelse) && condicao(ifelse) && NmatchL("then", ifelse))
         {
             if(expressao(ifelse) || ifelse(ifelse) || enquanto(ifelse) || para(ifelse))
@@ -208,7 +243,7 @@ public class Parser
                         node.addNode(ifelse);
                         return true;
                     } 
-                else
+                    else
                     {
                        node.addNode(ifelse);
                        return expressao(ifelse);
@@ -218,7 +253,8 @@ public class Parser
                 return true;
             }
         }
-        erroL("ifelse() format", ifelse);
+        //erroL("ifelse() format", ifelse);
+        node.addNode(ifelse);
         return false;
     }
     
@@ -234,7 +270,7 @@ public class Parser
                return true;
            }
        }
-       erroL("while() format", enquanto);
+       //erroL("while() format", enquanto);
        node.addNode(enquanto);
        return false;
     }
@@ -252,7 +288,7 @@ public class Parser
                return true;
            }
        }
-       erroL("for() format", para);
+       //erroL("for() format", para);
        node.addNode(para);
        return false;
     }
