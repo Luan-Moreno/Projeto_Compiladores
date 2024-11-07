@@ -124,6 +124,7 @@ public class Parser
         return false;
     }
     
+    
     public boolean bloco(Node node) 
     {
         Node bloco = node.addNode("bloco");
@@ -191,7 +192,6 @@ public class Parser
         }
         return false;
     }
-
     
     public boolean id(Node node)
     {
@@ -214,6 +214,7 @@ public class Parser
         erroT("num", num);
         return false;
     }
+    
     
     public boolean operador(Node node)
     {
@@ -261,18 +262,24 @@ public class Parser
     }
 
     
-    public boolean condicao(Node node)
+    public boolean condicao(Node node) 
     {
         Node condicao = node.addNode("condicao");
-        return id(condicao) && operador(condicao) && (NmatchT("tipo_booleano", condicao) || num(condicao));
+        return id(condicao) && operador(condicao) &&
+               (NmatchT("bool", condicao) || 
+                NmatchT("num", condicao)  ||
+                NmatchT("char", condicao) || 
+                NmatchT("string", condicao));
     }
+
+
     
     
     public boolean atribuicao(Node node)
     {
         Node atribuicao = node.addNode("atribuicao");
         if(NmatchT("reservada_tipo_inteiro", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("num", atribuicao) ||
-           NmatchT("reservada_tipo_decimal", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("decimal", atribuicao) ||
+           NmatchT("reservada_tipo_decimal", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("num", atribuicao) ||
            NmatchT("reservada_tipo_texto", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("string", atribuicao) ||
            NmatchT("reservada_tipo_caracter", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("char", atribuicao) ||
            NmatchT("reservada_tipo_booleano", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("bool", atribuicao))

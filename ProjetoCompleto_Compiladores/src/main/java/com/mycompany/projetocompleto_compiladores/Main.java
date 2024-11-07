@@ -7,8 +7,8 @@ public class Main
     public static void main(String[] args) 
     {
         List<Token> tokens = new ArrayList<>();
-        String data = "if x == 1 then if x == 2 then if x == 3 then x = 4";
-        //String data = "if x1 == \'a\' then x2 = 1.1 else if x1 == \'b\' then x2 = True else if x1 == \'c\' then x2 = 3";
+        //String data = "if x1 == 1 then if x2 == 2 then if x3 == 3 then x4 = 4";
+        String data = "if x1 == \'a\' then x2 = 1.1 else if x1 == \'b\' then x2 = True else if x1 == \'c\' then x2 = 3";
         //String data = "while x1 == 2:";
         
         Lexer lexer = new Lexer(data);
