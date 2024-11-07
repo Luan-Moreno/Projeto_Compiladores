@@ -20,7 +20,9 @@ public class Main
         //data = "int a = False";
         //data = "char a = \"a\"";
         //data = "1 + 2 * 3 / 5 * 2 + 2 - 1";
-        data = "leitura";
+        //data = "impressao(x)";
+        //data = "impressao(True)";
+        data = "impressao(\'a\')";
         
         Lexer lexer = new Lexer(data);
         tokens = lexer.getTokens();

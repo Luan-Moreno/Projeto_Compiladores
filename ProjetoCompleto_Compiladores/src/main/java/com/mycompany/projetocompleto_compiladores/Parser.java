@@ -166,29 +166,34 @@ public class Parser
             return atribuicao(blocoinicial);  
         }
 
-        if (Nverify("id", blocoinicial, true)) 
+        if(Nverify("id", blocoinicial, true)) 
         {
             return expressao(blocoinicial);
         }
 
-        if (Nverify("num", blocoinicial, true)) 
+        if(Nverify("num", blocoinicial, true)) 
         {
             return conta(blocoinicial);
         }
 
-        if (Nverify("if", blocoinicial, false)) 
+        if(Nverify("if", blocoinicial, false)) 
         {
             return ifelse(blocoinicial);
         }
 
-        if (Nverify("while", blocoinicial, false)) 
+        if(Nverify("while", blocoinicial, false)) 
         {
             return enquanto(blocoinicial); 
         }
 
-        if (Nverify("for", blocoinicial, false)) 
+        if(Nverify("for", blocoinicial, false)) 
         {
             return para(blocoinicial); 
+        }
+        
+        if(Nverify("impressao", blocoinicial, false)) 
+        {
+            return impressao(blocoinicial);
         }
         return false;
     }
@@ -453,14 +458,19 @@ public class Parser
        return false;
     }
     
-    public boolean escrita(Node node)
+    public boolean impressao(Node node)
     {
-       Node escrita = node.addNode("escrita");
-       if(NmatchL("escrita", escrita))
+       Node impressao = node.addNode("impressao");
+       if(NmatchL("impressao", impressao) && NmatchL("(", impressao) &&
+               (NmatchT("bool", impressao) || 
+                NmatchT("num", impressao)  ||
+                NmatchT("char", impressao) || 
+                NmatchT("string", impressao)|| 
+                conta(impressao)) && NmatchL(")", impressao))
        {
            return true;
        }
-       erroL("escrita() format", escrita);
+       erroL("impressao() format", impressao);
        return false;
     }
     

@@ -25,7 +25,7 @@ public class Lexer
     
     public void skipWhiteSpace()
     {
-        while(code.current() == ' ' || code.current() == '\n')
+        while(code.current() == ' ' || code.current() == '\n' || code.current() == '\t')
         {
             code.next();
         }
