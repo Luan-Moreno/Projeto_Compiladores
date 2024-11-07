@@ -8,10 +8,9 @@ public class Main
     {
         List<Token> tokens = new ArrayList<>();
         String data;
-        data = "1 + 2 * 3 / 5 * 2 + 2 - 1";
+        
         // Testes
         //data = "if x1 == 1 then if x2 == 2 then if x3 == 3 then x4 = 4";
-        //data = "5 + 5 * 4";
         //data = "if x1 == \'a\' then x2 = 1.1 else if x1 == \'b\' then x2 = True else if x1 == \'c\' then x2 = 3";
         //data = "while x1 == 2: x = 1.23456";
         //data = "for (int x = 3; x < 10; x++): while x1 == 2: x = 3";
@@ -20,6 +19,8 @@ public class Main
         //data = "bool a = False";
         //data = "int a = False";
         //data = "char a = \"a\"";
+        //data = "1 + 2 * 3 / 5 * 2 + 2 - 1";
+        data = "leitura";
         
         Lexer lexer = new Lexer(data);
         tokens = lexer.getTokens();

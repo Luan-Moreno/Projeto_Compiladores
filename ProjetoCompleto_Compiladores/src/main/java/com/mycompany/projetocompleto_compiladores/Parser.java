@@ -442,4 +442,26 @@ public class Parser
        return false;
     }
     
+    public boolean leitura(Node node)
+    {
+       Node leitura = node.addNode("leitura");
+       if(NmatchL("leitura", leitura))
+       {
+           return true;
+       }
+       erroL("leitura() format", leitura);
+       return false;
+    }
+    
+    public boolean escrita(Node node)
+    {
+       Node escrita = node.addNode("escrita");
+       if(NmatchL("escrita", escrita))
+       {
+           return true;
+       }
+       erroL("escrita() format", escrita);
+       return false;
+    }
+    
 }

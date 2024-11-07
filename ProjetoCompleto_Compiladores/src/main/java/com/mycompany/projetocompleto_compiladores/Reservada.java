@@ -36,6 +36,16 @@ public class Reservada extends AFD
             return new Token("reservada", "for");
         }
         
+        if(matchC(code, 'l') && matchC(code, 'e')  && matchC(code, 'i')  && matchC(code, 't') && matchC(code, 'u') && matchC(code, 'r') && matchC(code, 'a'))
+        {
+            return new Token("reservada", "leitura");
+        }
+        
+        if(matchC(code, 'e') && matchC(code, 's')  && matchC(code, 'c')  && matchC(code, 'r') && matchC(code, 'i') && matchC(code, 't') && matchC(code, 'a'))
+        {
+            return new Token("reservada", "escrita");
+        }
+        
         if(matchC(code, 'i') && matchC(code, 'n') && matchC(code, 't') && matchC(code, ' '))
         {
             return new Token("reservada_tipo_inteiro", "int");
@@ -70,6 +80,7 @@ public class Reservada extends AFD
         {
             return new Token("tipo_booleano", "False");
         }
+        
         
         return null;
       }
