@@ -217,12 +217,94 @@ public class Parser
         return false;
     }
     
-
-    public boolean conta(Node node)
+    
+    public boolean conta(Node node) 
     {
         Node conta = node.addNode("conta");
 
-        if (matchT("num", conta))
+        while (true) 
+        {
+            if (!contaTermo(conta)) 
+            {
+                return false;
+            }
+
+            while (true) 
+            {
+                if (NmatchL("*", conta) || NmatchL("/", conta)) 
+                {
+                    if (!contaTermo(conta)) 
+                    {
+                        return false;
+                    }
+                } 
+                else 
+                {
+                    break;
+                }
+            }
+
+            while (true) 
+            {
+                if (NmatchL("+", conta) || NmatchL("-", conta)) 
+                {
+                    if (!contaTermo(conta)) 
+                    {
+                        return false;
+                    }
+                } 
+                else 
+                {
+                    break;
+                }
+            }
+
+            if (!NmatchL("+", conta) && !NmatchL("-", conta) && !NmatchL("*", conta) && !NmatchL("/", conta)) 
+            {
+                break;
+            }
+    }
+
+    return true;
+    }
+
+    private boolean contaTermo(Node node) 
+    {
+        if (matchT("num", node)) 
+        {
+            return true;
+        }
+
+        if (NmatchT("id", node)) 
+        {
+            return true;
+        }
+
+        if (NmatchL("(", node)) 
+        {
+            if (!conta(node)) 
+            {
+                return false;
+            }
+
+            return NmatchL(")", node);
+        }
+        return false;
+    }
+
+
+
+
+    /*public boolean conta(Node node)
+    {
+        Node conta = node.addNode("conta");
+
+        if (NmatchT("num", conta))
+        {
+            return contaOperacoes(conta);
+        }
+        
+        if (NmatchT("id", conta)) 
         {
             return contaOperacoes(conta);
         }
@@ -247,17 +329,18 @@ public class Parser
         }
 
         return true;
-    }
+    }*/
 
     
     public boolean condicao(Node node) 
     {
         Node condicao = node.addNode("condicao");
-        return id(condicao) && operador(condicao) &&
+        return id(condicao)  && operador(condicao) &&
                (NmatchT("bool", condicao) || 
                 NmatchT("num", condicao)  ||
                 NmatchT("char", condicao) || 
-                NmatchT("string", condicao));
+                NmatchT("string", condicao)|| 
+                conta(condicao));
     }
 
 
@@ -270,7 +353,8 @@ public class Parser
            NmatchT("reservada_tipo_decimal", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("num", atribuicao) ||
            NmatchT("reservada_tipo_texto", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("string", atribuicao) ||
            NmatchT("reservada_tipo_caracter", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("char", atribuicao) ||
-           NmatchT("reservada_tipo_booleano", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("tipo_booleano", atribuicao))
+           NmatchT("reservada_tipo_booleano", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("tipo_booleano", atribuicao)||
+           NmatchT("reservada_tipo_caracter", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && conta(atribuicao))
         {
             return true;
         }
