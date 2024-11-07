@@ -69,6 +69,19 @@ public class MathOperator extends AFD
            case ':':
                code.next();
                return new Token("operador_definicao", ":");
+            
+           case '(':
+               code.next();
+               return new Token("abertura_condicao", "(");
+            
+            case ')':
+               code.next();
+               return new Token("fechamento_condicao", ")");
+               
+            case ';':
+               code.next();
+               return new Token("fim_sentença", ";");
+            
            
            default:
                return null;

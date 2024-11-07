@@ -8,8 +8,9 @@ public class Main
     {
         List<Token> tokens = new ArrayList<>();
         //String data = "if x1 == 1 then if x2 == 2 then if x3 == 3 then x4 = 4";
-        String data = "if x1 == \'a\' then x2 = 1.1 else if x1 == \'b\' then x2 = True else if x1 == \'c\' then x2 = 3";
-        //String data = "while x1 == 2:";
+        //String data = "if x1 == \'a\' then x2 = 1.1 else if x1 == \'b\' then x2 = True else if x1 == \'c\' then x2 = 3";
+        //String data = "while x1 == 2: x = 1.23456";
+        String data = "for (int x = 3; x < 10; x++): x = 10";
         
         Lexer lexer = new Lexer(data);
         tokens = lexer.getTokens();

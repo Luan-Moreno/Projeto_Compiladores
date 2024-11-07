@@ -203,19 +203,7 @@ public class Parser
         erroT("id", id);
         return false;
     }
-    
-    public boolean num(Node node)
-    {
-        Node num = node.addNode("num");
-        if(NmatchT("num", num))
-        {
-            return true;
-        }
-        erroT("num", num);
-        return false;
-    }
-    
-    
+       
     public boolean operador(Node node)
     {
         Node operador = node.addNode("operador");
@@ -307,8 +295,8 @@ public class Parser
     public boolean somatorio(Node node)
     {
         Node somatorio = node.addNode("somatorio");
-        if (NmatchT("id", somatorio) && (NmatchL("+", somatorio) || 
-            NmatchL("-", somatorio)) && (NmatchL("+", somatorio) || NmatchL("-", somatorio)))
+        if (NmatchT("id", somatorio) && ((NmatchL("+", somatorio) && (NmatchL("+", somatorio))) || 
+            NmatchL("-", somatorio) && NmatchL("-", somatorio)))
         {
             return true;
         }
