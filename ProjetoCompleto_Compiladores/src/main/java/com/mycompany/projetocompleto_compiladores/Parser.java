@@ -42,7 +42,7 @@ public class Parser
        token = getNextToken();
        Node root = new Node("início do programa");
        
-       if(atribuicao(root) || expressao(root) || conta(root) || ifelse(root))
+       if(blocoInicial(root))
        {
           if(token.tipo.equals("EOF"))
           {
@@ -109,6 +109,90 @@ public class Parser
         return false;
     }
     
+    public boolean Nverify(String aspecto, Node node, boolean tipo)
+    {
+        if(tipo == true && token.tipo.equals(aspecto))
+        {
+            return true;
+        }
+        
+        if(token.lexema.equals(aspecto))
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public boolean bloco(Node node) 
+    {
+        Node bloco = node.addNode("bloco");
+
+        if (Nverify("id", bloco, true)) 
+        {
+            return expressao(bloco);  
+        }
+
+        if (Nverify("if", bloco, false)) 
+        {
+            return ifelse(bloco);
+        }
+
+        if (Nverify("while", bloco, false)) 
+        {
+            return enquanto(bloco); 
+        }
+
+        if (Nverify("for", bloco, false)) 
+        {
+            return para(bloco); 
+        }
+
+        return false;
+    }
+
+    
+    public boolean blocoInicial(Node node) 
+    {
+        Node blocoinicial = node.addNode("main");
+
+        if (Nverify("reservada_tipo_inteiro", blocoinicial, true) || 
+            Nverify("reservada_tipo_decimal", blocoinicial, true) ||
+            Nverify("reservada_tipo_texto", blocoinicial, true) ||
+            Nverify("reservada_tipo_caracter", blocoinicial, true) ||
+            Nverify("reservada_tipo_booleano", blocoinicial, true)) 
+        {    
+            return atribuicao(blocoinicial);  
+        }
+
+        if (Nverify("id", blocoinicial, true)) 
+        {
+            return expressao(blocoinicial);
+        }
+
+        if (Nverify("num", blocoinicial, true)) 
+        {
+            return conta(blocoinicial);
+        }
+
+        if (Nverify("if", blocoinicial, false)) 
+        {
+            return ifelse(blocoinicial);
+        }
+
+        if (Nverify("while", blocoinicial, false)) 
+        {
+            return enquanto(blocoinicial); 
+        }
+
+        if (Nverify("for", blocoinicial, false)) 
+        {
+            return para(blocoinicial); 
+        }
+        return false;
+    }
+
+    
     public boolean id(Node node)
     {
         Node id = node.addNode("id");
@@ -127,7 +211,7 @@ public class Parser
         {
             return true;
         }
-        //erroT("num", num);
+        erroT("num", num);
         return false;
     }
     
@@ -195,23 +279,21 @@ public class Parser
         {
             return true;
         }
-        //erroT("Definition with correct types: int, float, string, char or bool", atribuicao);
+        erroT("Definition with correct types: int, float, string, char or bool", atribuicao);
         return false;
     }
     
     
     public boolean expressao(Node node)
     {
-        Node expressao = new Node("expressao");
+        Node expressao = node.addNode("expressao");
         if (NmatchT("id", expressao) && NmatchL("=", expressao) && 
             (NmatchT("num", expressao) || NmatchT("tipo_booleano", expressao) || 
             NmatchT("string", expressao) || NmatchT("char", expressao)))
         {
-            node.addNode(expressao);
             return true;
         }
         erroT("Expression of type: id = num/bool/string/char", expressao);
-        //node.addNode("expressao");
         return false;
     }
     
@@ -229,67 +311,55 @@ public class Parser
     
     public boolean ifelse(Node node)
     {
-        //Node ifelse = node.addNode("ifelse");
-        Node ifelse = new Node("ifelse");
-        Node temp = ifelse;
+        Node ifelse = node.addNode("condicional");
         if (NmatchL("if", ifelse) && condicao(ifelse) && NmatchL("then", ifelse))
         {
-            if(expressao(ifelse) || ifelse(ifelse) || enquanto(ifelse) || para(ifelse))
+            if(bloco(ifelse))
             {
                 if(NmatchL("else", ifelse)) 
                 {
-                    if(expressao(ifelse) || ifelse(ifelse) || enquanto(ifelse) || para(ifelse)) 
+                    if(bloco(ifelse)) 
                     {
-                        node.addNode(ifelse);
                         return true;
                     } 
                     else
                     {
-                       node.addNode(ifelse);
                        return expressao(ifelse);
                     }
                 }
-                node.addNode(ifelse);
                 return true;
             }
         }
-        //erroL("ifelse() format", ifelse);
-        node.addNode(ifelse);
+        erroL("ifelse() format", ifelse);
         return false;
     }
     
     public boolean enquanto(Node node)
     {
-       //Node enquanto = node.addNode("enquanto");
-       Node enquanto = new Node("enquanto");
+       Node enquanto = node.addNode("enquanto");
        if(NmatchL("while", enquanto) && condicao(enquanto) && NmatchL(":", enquanto))
        {
-           if(expressao(enquanto) || ifelse(enquanto) || enquanto(enquanto) || para(enquanto))
+           if(bloco(enquanto))
            {
-               node.addNode(enquanto);
                return true;
            }
        }
-       //erroL("while() format", enquanto);
-       node.addNode(enquanto);
+       erroL("while() format", enquanto);
        return false;
     }
     
     public boolean para(Node node)
     {
-       //Node para = node.addNode("para");
-       Node para = new Node("para");
+       Node para = node.addNode("para");
        if(NmatchL("for", para) && NmatchL("(", para) && atribuicao(para) && NmatchL(";", para) && condicao(para) && 
          NmatchL(";", para) && somatorio(para) && NmatchL(")", para)  && NmatchL(":", para))
        {
-           if(expressao(para) || ifelse(para) || enquanto(para) || para(para))
+           if(bloco(para))
            {
-               node.addNode(para);
                return true;
            }
        }
-       //erroL("for() format", para);
-       node.addNode(para);
+       erroL("for() format", para);
        return false;
     }
     
