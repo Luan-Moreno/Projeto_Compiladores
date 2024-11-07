@@ -9,36 +9,36 @@ Segunda-feira:
 - [X] Léxico: Criando o tipo Texto (String e Char)
 - [X] Léxico: Criando o tipo Booleano (True/False)
 - [X] Sintático: Atualizando Gramática da Condição e da Expressão
-- [X] Sintático: Processamento correto de ifs encadeados
 
 Terça-feira:
 - [X] Sintático: Criar o while()
 - [X] Sintático: Criar o for()
-- [ ] Linguagem: Construir a AST (Árvore Sintática) [75%]
-- [ ] Sintático: Processamento correto de laços encadeados
-- [ ] Sintático: Garantir a precedência nas expressões matemáticas
+- [X] Linguagem: Construir a AST (Árvore Sintática) [70%]
 
 Quarta-feira:
+- [X] Linguagem: Finalizar a AST (Árvore Sintática)
+- [X] Sintático: Processamento correto de ifs encadeados
+- [X] Sintático: Processamento correto de laços encadeados
+- [X] Semântico: Verificação de tipos e atribuições (tipos corretos são atribuídos e "somados")
+
+Quinta-feira:
+- [ ] Sintático: Garantir a precedência nas expressões matemáticas
 - [ ] Sintático: Criar comando de leitura do teclado scanf()
 - [ ] Sintático: Criar comando de impressão print()
 - [ ] Semântico: Verificar declaração de variáveis (Garantir que não seja definida duas vezes)
 - [ ] Semântico: Verificar se operações são possíveis em certo contexto (Analisar escopo)
-- [ ] Semântico: Verificação de tipos e atribuições (tipos corretos são atribuídos e "somados")
-
-Quinta-feira:
-- [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
-
-- [ ] Compilador: Realizar a conversão para Python das palavras reservadas específicas
-- [ ] Compilador: Realizar a conversão para Python dos tipos específicas
 
 Sexta-feira:
+- [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
+- [ ] Compilador: Realizar a conversão para Python das palavras reservadas específicas
+- [ ] Compilador: Realizar a conversão para Python dos tipos específicas
 - [ ] Compilador: Realizar a conversão dos formatos específicos (ifelse, while, for) 
-- [ ] Adicionais (se der tempo): Criar novas regras (Funções)
-- [ ] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem
 - [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
 - https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
       
 Sábado:
+- [ ] Adicionais (se der tempo): Criar novas regras (Funções)
+- [ ] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem
 - [ ] PDF: Terminar PDF (Instruções de execução, Exemplos de código)
 - [ ] Preparar apresentação
 - [ ] Enviar arquivo no Moodle Zipado
