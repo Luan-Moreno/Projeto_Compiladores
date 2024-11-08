@@ -26,10 +26,10 @@ Quinta-feira:
 - [ ] Sintático: Criar comando de leitura do teclado scanf()
 - [ ] Sintático: Criar comando de impressão print()
 - [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
-- [ ] Compilador: Realizar a conversão para Python das palavras reservadas específicas
+- [ ] Compilador: Realizar a conversão para Javascript das palavras reservadas específicas
 
 Sexta-feira:
-- [ ] Compilador: Realizar a conversão para Python dos tipos específicas
+- [ ] Compilador: Realizar a conversão para Javascript dos tipos específicas
 - [ ] Compilador: Realizar a conversão dos formatos específicos (ifelse, while, for) 
 - [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
 - https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
