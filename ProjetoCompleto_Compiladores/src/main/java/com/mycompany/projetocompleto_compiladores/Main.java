@@ -30,7 +30,7 @@ public class Main
         try 
         {
             File arquivo = new File("src\\main\\java\\com\\mycompany\\projetocompleto_compiladores\\input.txt");
-            Scanner scanner = new Scanner(arquivo);
+            Scanner scanner = new Scanner(arquivo); 
             while (scanner.hasNextLine()) 
             {
                 data += scanner.nextLine() + "\n";

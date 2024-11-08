@@ -145,6 +145,11 @@ public class Parser
         {
             return para(bloco); 
         }
+        
+        if(Nverify("impressao", bloco, false)) 
+        {
+            return impressao(bloco);
+        }
 
         return false;
     }
@@ -203,6 +208,15 @@ public class Parser
         }
         erroT("id", id);
         return false;
+    }
+    
+    public boolean tipo(Node node)
+    {
+        Node tipo = node.addNode("tipo");
+        return (NmatchT("tipo_booleano", tipo) || 
+                NmatchT("num", tipo)  ||
+                NmatchT("char", tipo) || 
+                NmatchT("string", tipo) || id(tipo));
     }
        
     public boolean operador(Node node)
@@ -268,9 +282,9 @@ public class Parser
     return true;
     }
 
-    private boolean contaTermo(Node node) 
+    public boolean contaTermo(Node node) 
     {
-        if (matchT("num", node)) 
+        if (NmatchT("num", node)) 
         {
             return true;
         }
@@ -296,10 +310,7 @@ public class Parser
     {
         Node condicao = node.addNode("condicao");
         return id(condicao)  && operador(condicao) &&
-               (NmatchT("bool", condicao) || 
-                NmatchT("num", condicao)  ||
-                NmatchT("char", condicao) || 
-                NmatchT("string", condicao)|| 
+               (tipo(condicao)|| 
                 conta(condicao));
     }
 
@@ -401,23 +412,20 @@ public class Parser
     public boolean leitura(Node node)
     {
        Node leitura = node.addNode("leitura");
-       if(NmatchL("leitura", leitura))
+       if(NmatchL("leitura", leitura) && NmatchL("(", leitura) && tipo(leitura) && NmatchL(")", leitura) && 
+          NmatchL("(", leitura) && tipo(leitura) && NmatchL(")", leitura))
        {
            return true;
        }
        erroL("leitura() format", leitura);
        return false;
     }
-    
+      
     public boolean impressao(Node node)
     {
        Node impressao = node.addNode("impressao");
        if(NmatchL("impressao", impressao) && NmatchL("(", impressao) &&
-               (NmatchT("tipo_booleano", impressao) || 
-                NmatchT("num", impressao)  ||
-                NmatchT("char", impressao) || 
-                NmatchT("string", impressao)|| 
-                conta(impressao)) && NmatchL(")", impressao))
+               tipo(impressao) && NmatchL(")", impressao))
        {
            return true;
        }
