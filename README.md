@@ -38,10 +38,10 @@ Sábado:
 - https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
 - [ ] Compilador: Realizar a conversão para C das palavras reservadas específicas
 - [ ] Compilador: Realizar a conversão para C dos tipos específicos
-- [ ] Compilador: Realizar a conversão para C dos formatos específicos (ifelse, while, for, leitura, impressao) 
+- [ ] Compilador: Realizar a conversão para C dos formatos específicos (ifelse, while, for, leitura, impressao)
+- [ ] PDF: Terminar PDF (Instruções de execução, Exemplos de código) 
 
 Domingo:
-- [ ] PDF: Terminar PDF (Instruções de execução, Exemplos de código)
 - [ ] Semântico: Verificar declaração de variáveis (Garantir que não seja definida duas vezes)
 - [ ] Semântico: Verificar se operações são possíveis em certo contexto (Analisar escopo)
 - [ ] Adicionais (se der tempo): Criar novas regras (Funções)
