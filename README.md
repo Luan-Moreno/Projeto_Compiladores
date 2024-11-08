@@ -29,8 +29,8 @@ Quinta-feira:
 Sexta-feira:
 - [X] Sintático: Criar comando de leitura do teclado leitura()
 - [X] PDF: Garantir que tenho todas as Expressões Regulares Escritas (Léxico)
-- [ ] PDF: Garantir que tenho todas as Gramáticas Escritas (Sintático)
-- [ ] PDF: Verificar a Recursão / Fatoração à esquerda nas Gramáticas
+- [X] PDF: Garantir que tenho todas as Gramáticas Escritas (Sintático)
+- [X] PDF: Verificar a Recursão / Fatoração à esquerda nas Gramáticas
 - [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
 
 Sábado:
