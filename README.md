@@ -23,12 +23,13 @@ Quarta-feira:
 
 Quinta-feira:
 - [X] Sintático/Semântico: Garantir a precedência nas expressões matemáticas
-- [ ] Sintático: Criar comando de leitura do teclado scanf()
-- [ ] Sintático: Criar comando de impressão print()
-- [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
-- [ ] Compilador: Realizar a conversão para Javascript das palavras reservadas específicas
+- [X] Linguagem: Adicionar entrada por arquivo externo (.txt) 
+- [X] Sintático: Criar comando de impressão print()
 
 Sexta-feira:
+- [ ] Sintático: Criar comando de leitura do teclado scanf()
+- [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
+- [ ] Compilador: Realizar a conversão para Javascript das palavras reservadas específicas
 - [ ] Compilador: Realizar a conversão para Javascript dos tipos específicas
 - [ ] Compilador: Realizar a conversão dos formatos específicos (ifelse, while, for) 
 - [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
