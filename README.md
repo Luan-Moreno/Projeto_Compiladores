@@ -27,23 +27,27 @@ Quinta-feira:
 - [X] Sintático: Criar comando de impressão print()
 
 Sexta-feira:
-- [ ] Sintático: Criar comando de leitura do teclado scanf()
+- [X] Sintático: Criar comando de leitura do teclado leitura()
+- [X] PDF: Garantir que tenho todas as Expressões Regulares Escritas (Léxico)
+- [ ] PDF: Garantir que tenho todas as Gramáticas Escritas (Sintático)
+- [ ] PDF: Verificar a Recursão / Fatoração à esquerda nas Gramáticas
 - [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
-- [ ] Compilador: Realizar a conversão para Javascript das palavras reservadas específicas
-- [ ] Compilador: Realizar a conversão para Javascript dos tipos específicas
-- [ ] Compilador: Realizar a conversão dos formatos específicos (ifelse, while, for) 
+
+Sábado:
 - [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
 - https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
-      
-Sábado:
+- [ ] Compilador: Realizar a conversão para C das palavras reservadas específicas
+- [ ] Compilador: Realizar a conversão para C dos tipos específicos
+- [ ] Compilador: Realizar a conversão para C dos formatos específicos (ifelse, while, for, leitura, impressao)
+- [ ] PDF: Terminar PDF (Instruções de execução, Exemplos de código) 
+
+Domingo:
 - [ ] Semântico: Verificar declaração de variáveis (Garantir que não seja definida duas vezes)
 - [ ] Semântico: Verificar se operações são possíveis em certo contexto (Analisar escopo)
 - [ ] Adicionais (se der tempo): Criar novas regras (Funções)
 - [ ] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem
-- [ ] PDF: Terminar PDF (Instruções de execução, Exemplos de código)
 - [ ] Preparar apresentação
 - [ ] Enviar arquivo no Moodle Zipado
-
 
 
 
