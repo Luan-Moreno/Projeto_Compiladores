@@ -164,11 +164,7 @@ public class Parser
     {
         Node blocoinicial = node.addNode("main");
 
-        if (Nverify("reservada_tipo_inteiro", blocoinicial, true) || 
-            Nverify("reservada_tipo_decimal", blocoinicial, true) ||
-            Nverify("reservada_tipo_texto", blocoinicial, true) ||
-            Nverify("reservada_tipo_caracter", blocoinicial, true) ||
-            Nverify("reservada_tipo_booleano", blocoinicial, true)) 
+        if (reservadaTipo(blocoinicial) && NmatchL("=", blocoinicial)) 
         {    
             return atribuicao(blocoinicial);  
         }
@@ -339,12 +335,7 @@ public class Parser
     public boolean atribuicao(Node node)
     {
         Node atribuicao = node.addNode("atribuicao");
-        if(NmatchT("reservada_tipo_inteiro", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("num", atribuicao) ||
-           NmatchT("reservada_tipo_decimal", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("num", atribuicao) ||
-           NmatchT("reservada_tipo_texto", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("string", atribuicao) ||
-           NmatchT("reservada_tipo_caracter", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("char", atribuicao) ||
-           NmatchT("reservada_tipo_booleano", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && NmatchT("tipo_booleano", atribuicao)||
-           NmatchT("reservada_tipo_caracter", atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && conta(atribuicao))
+        if(reservadaTipo(atribuicao) && NmatchT("id", atribuicao) && NmatchL("=", atribuicao) && (tipo(atribuicao) || conta(atribuicao)))
         {
             return true;
         }
@@ -355,9 +346,7 @@ public class Parser
     public boolean expressao(Node node)
     {
         Node expressao = node.addNode("expressao");
-        if (NmatchT("id", expressao) && NmatchL("=", expressao) && 
-            (NmatchT("num", expressao) || NmatchT("tipo_booleano", expressao) || 
-            NmatchT("string", expressao) || NmatchT("char", expressao)))
+        if (NmatchT("id", expressao) && NmatchL("=", expressao) && tipo(expressao))
         {
             return true;
         }
@@ -382,7 +371,7 @@ public class Parser
         Node ifelse = node.addNode("condicional");
         if (NmatchL("if", ifelse) && condicao(ifelse) && NmatchL("then", ifelse))
         {
-            if(bloco(ifelse))
+             if(bloco(ifelse))
             {
                 if(NmatchL("else", ifelse)) 
                 {
