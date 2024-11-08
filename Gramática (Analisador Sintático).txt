@@ -1,0 +1,37 @@
+main -> blocoinicial
+
+blocoinicial -> atribuicao | expressao | conta | ifelse | enquanto | para | impressao | leitura
+
+atribuicao -> reservadaTipo "=" [tipo | conta]
+
+reservadaTipo -> reservada_tipo_inteiro | reservada_tipo_decimal | reservada_tipo_texto | reservada_tipo_caracter | reservada_tipo_booleano
+
+tipo -> tipo_booleano | num | char | string | id
+
+conta -> termo [operador_soma_subtracao termo]*
+
+termo -> fator [operador_multiplicacao_divisao fator]*
+
+fator -> num | id | "(" expressao ")"
+
+operador_soma_subtracao -> "+" | "-"
+
+operador_multiplicacao_divisao -> "*" | "/"
+
+num -> [0-9]+ | .[0-9]+ | [0-9]+.[0-9]+
+
+id -> [a-zA-Z0-9] [a-zA-Z0-9]*  
+
+expressao -> id "=" tipo
+
+ifelse -> "if" condicao "then" bloco ["else" [bloco|expressao] | e]
+
+condicao -> id operador [tipo | conta]
+
+enquanto -> "while" condicao ":" bloco
+
+para -> "for" "(" atribuicao ";" condicao ";" somatorio ")" ":"
+
+impressao -> "impressao" "(" tipo ")"
+
+leitura -> "leitura" "(" reservadaTipo ["," reservadaTipo]* ")" "(" tipo ["," tipo]* ")"
