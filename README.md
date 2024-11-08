@@ -27,7 +27,7 @@ Quinta-feira:
 - [X] Sintático: Criar comando de impressão print()
 
 Sexta-feira:
-- [ ] Sintático: Criar comando de leitura do teclado scanf()
+- [X] Sintático: Criar comando de leitura do teclado scanf()
 - [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
 - [ ] Compilador: Realizar a conversão para Javascript das palavras reservadas específicas
 - [ ] Compilador: Realizar a conversão para Javascript dos tipos específicas
