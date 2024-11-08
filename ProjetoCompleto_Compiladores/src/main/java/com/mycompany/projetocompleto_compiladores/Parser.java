@@ -61,7 +61,6 @@ public class Parser
        return null;
     }
     
-    
     public boolean matchL(String lexema, Node node)
     {
         if(token.lexema.equals(lexema))
@@ -84,7 +83,6 @@ public class Parser
         }
         return false;
     }
-    
     
     public boolean matchT(String tipo, Node node)
     {
@@ -123,8 +121,7 @@ public class Parser
         
         return false;
     }
-    
-    
+      
     public boolean bloco(Node node) 
     {
         Node bloco = node.addNode("bloco");
@@ -151,8 +148,7 @@ public class Parser
 
         return false;
     }
-
-    
+  
     public boolean blocoInicial(Node node) 
     {
         Node blocoinicial = node.addNode("main");
@@ -221,7 +217,6 @@ public class Parser
         erroL("Operator: >, <, ==, !=, >=, <=", operador);
         return false;
     }
-    
     
     public boolean conta(Node node) 
     {
@@ -296,46 +291,6 @@ public class Parser
         }
         return false;
     }
-
-
-
-
-    /*public boolean conta(Node node)
-    {
-        Node conta = node.addNode("conta");
-
-        if (NmatchT("num", conta))
-        {
-            return contaOperacoes(conta);
-        }
-        
-        if (NmatchT("id", conta)) 
-        {
-            return contaOperacoes(conta);
-        }
-
-        return false;
-    }
-
-    private boolean contaOperacoes(Node node)
-    {
-        while (true)
-        {
-            if (NmatchL("+", node) || NmatchL("-", node) || NmatchL("*", node) 
-                || NmatchL("/", node) || NmatchL("**", node))
-            {
-                if (matchT("num", node))
-                {
-                    continue;
-                }
-                return false;
-            }
-            break;
-        }
-
-        return true;
-    }*/
-
     
     public boolean condicao(Node node) 
     {
@@ -348,9 +303,6 @@ public class Parser
                 conta(condicao));
     }
 
-
-    
-    
     public boolean atribuicao(Node node)
     {
         Node atribuicao = node.addNode("atribuicao");
@@ -366,7 +318,6 @@ public class Parser
         erroT("Definition with correct types: int, float, string, char or bool", atribuicao);
         return false;
     }
-    
     
     public boolean expressao(Node node)
     {
@@ -462,7 +413,7 @@ public class Parser
     {
        Node impressao = node.addNode("impressao");
        if(NmatchL("impressao", impressao) && NmatchL("(", impressao) &&
-               (NmatchT("bool", impressao) || 
+               (NmatchT("tipo_booleano", impressao) || 
                 NmatchT("num", impressao)  ||
                 NmatchT("char", impressao) || 
                 NmatchT("string", impressao)|| 
