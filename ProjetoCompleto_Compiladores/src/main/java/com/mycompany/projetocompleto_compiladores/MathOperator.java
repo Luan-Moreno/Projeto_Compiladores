@@ -76,6 +76,10 @@ public class MathOperator extends AFD
             case ';':
                code.next();
                return new Token("fim_sentença", ";");
+               
+            case ',':
+               code.next();
+               return new Token("virgula", ",");
             
            
            default:

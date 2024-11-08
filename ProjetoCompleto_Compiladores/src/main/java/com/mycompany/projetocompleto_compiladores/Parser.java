@@ -150,6 +150,12 @@ public class Parser
         {
             return impressao(bloco);
         }
+        
+        if(Nverify("leitura", bloco, false)) 
+        {
+            return leitura(bloco);
+        }
+
 
         return false;
     }
@@ -196,6 +202,12 @@ public class Parser
         {
             return impressao(blocoinicial);
         }
+        
+        if(Nverify("leitura", blocoinicial, false)) 
+        {
+            return leitura(blocoinicial);
+        }
+        
         return false;
     }
     
@@ -217,6 +229,16 @@ public class Parser
                 NmatchT("num", tipo)  ||
                 NmatchT("char", tipo) || 
                 NmatchT("string", tipo) || id(tipo));
+    }
+    
+    public boolean reservadaTipo(Node node)
+    {
+        Node reservadaTipo = node.addNode("reservadaTipo");
+        return NmatchT("reservada_tipo_inteiro", reservadaTipo) || 
+               NmatchT("reservada_tipo_decimal", reservadaTipo) || 
+               NmatchT("reservada_tipo_texto", reservadaTipo) || 
+               NmatchT("reservada_tipo_caracter", reservadaTipo) || 
+               NmatchT("reservada_tipo_booleano", reservadaTipo); 
     }
        
     public boolean operador(Node node)
@@ -409,17 +431,50 @@ public class Parser
        return false;
     }
     
-    public boolean leitura(Node node)
+
+    public boolean leitura(Node node) 
     {
-       Node leitura = node.addNode("leitura");
-       if(NmatchL("leitura", leitura) && NmatchL("(", leitura) && tipo(leitura) && NmatchL(")", leitura) && 
-          NmatchL("(", leitura) && tipo(leitura) && NmatchL(")", leitura))
-       {
-           return true;
-       }
-       erroL("leitura() format", leitura);
-       return false;
-    }
+        Node leitura = node.addNode("leitura");
+
+        if (NmatchL("leitura", leitura) && NmatchL("(", leitura)) 
+        {
+            if (reservadaTipo(leitura)) 
+            {
+                while (NmatchL(",", leitura)) 
+                {
+                    if (!reservadaTipo(leitura)) 
+                    {
+                        erro("Esperado tipo de leitura após vírgula");
+                        return false;
+                    }
+                }
+
+                if (NmatchL(")", leitura) && NmatchL("(", leitura)) 
+                {
+                    if (tipo(leitura)) 
+                    {
+                        while (NmatchL(",", leitura)) 
+                        {
+                            if (!tipo(leitura)) 
+                            {
+                                erro("Esperado variável de leitura após vírgula");
+                                return false;
+                            }
+                        }
+
+                        if (NmatchL(")", leitura)) 
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    
+    erroL("Formato de leitura esperado: leitura(tipo1, tipo2, ...)(variavel1, variavel2, ...)", leitura);
+    return false;
+}
+
       
     public boolean impressao(Node node)
     {
