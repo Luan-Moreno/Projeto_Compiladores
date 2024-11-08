@@ -31,9 +31,9 @@ Sexta-feira:
 - [X] PDF: Garantir que tenho todas as Expressões Regulares Escritas (Léxico)
 - [X] PDF: Garantir que tenho todas as Gramáticas Escritas (Sintático)
 - [X] PDF: Verificar a Recursão / Fatoração à esquerda nas Gramáticas
-- [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
 
 Sábado:
+- [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
 - [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
 - https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
 - [ ] Compilador: Realizar a conversão para C das palavras reservadas específicas
