@@ -12,5 +12,10 @@ else
 {
 printf("%d",x);
 }
+scanf("%d","%f","%d",&a,&b,&c);
+for(int x=2;x>=0;x++)
+{
+x=3;
+}
 return 0;
 }

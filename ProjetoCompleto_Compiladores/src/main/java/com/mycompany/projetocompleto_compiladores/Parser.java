@@ -25,7 +25,7 @@ public class Parser
     
     public void erro(String regra)
     {
-        System.out.println("Sintaticamente Incorreto");
+        System.out.println("Sintaticamente Incorreto\n");
         System.out.println("Regra: " + regra);
         System.out.println("Token Invalido: " + token.lexema);
     }
@@ -54,7 +54,7 @@ public class Parser
           {
               traduz("return 0;\n");
               traduz("}");
-              System.out.println("\n\n\nSintaticamente Correto");
+              System.out.println("Sintaticamente Correto\n");
               root.addNode("fim do programa");
               return new Tree(root);
               
@@ -173,13 +173,13 @@ public class Parser
             return ifelse(bloco);
         }
 
-        if (Nverify("while", bloco, false)) 
+        if (Nverify("enquanto", bloco, false)) 
         {
             traduz("\n");
             return enquanto(bloco); 
         }
 
-        if (Nverify("for", bloco, false)) 
+        if (Nverify("para", bloco, false)) 
         {
             traduz("\n");
             return para(bloco); 
@@ -236,14 +236,14 @@ public class Parser
                 continue;
             }
 
-            if (Nverify("while", blocoinicial, false)) 
+            if (Nverify("enquanto", blocoinicial, false)) 
             {
                 if (!enquanto(blocoinicial)) return false;
                 traduz("\n");
                 continue;
             }
 
-            if (Nverify("for", blocoinicial, false)) 
+            if (Nverify("para", blocoinicial, false)) 
             {
                 if (!para(blocoinicial)) return false;
                 traduz("\n");
@@ -282,6 +282,17 @@ public class Parser
         return false;
     }
     
+    public boolean traduzId(Node node)
+    {
+        Node id = node.addNode("id");
+        if(NmatchT("id", id, "&" + token.lexema))
+        {
+            return true;
+        }
+        erroT("id", id);
+        return false;
+    }
+    
     public boolean tipo(Node node)
     {
         Node tipo = node.addNode("tipo");
@@ -289,6 +300,15 @@ public class Parser
                 NmatchT("num", tipo, token.lexema)  ||
                 NmatchT("char", tipo, token.lexema) || 
                 NmatchT("string", tipo, token.lexema) || id(tipo));
+    }
+    
+    public boolean traduzVar(Node node)
+    {
+        Node tipo = node.addNode("tipo");
+        return (NmatchT("tipo_booleano", tipo, "&" + token.lexema) || 
+                NmatchT("num", tipo, "&" + token.lexema)  ||
+                NmatchT("char", tipo, "&" + token.lexema) || 
+                NmatchT("string", tipo, "&" + token.lexema) || traduzId(tipo));
     }
     
     public boolean reservadaTipo(Node node)
@@ -522,31 +542,39 @@ public class Parser
     public boolean enquanto(Node node)
     {
        Node enquanto = node.addNode("enquanto");
-       if(NmatchL("while", enquanto, token.lexema) && condicao(enquanto) && NmatchL(":", enquanto, token.lexema))
+       if(NmatchL("enquanto", enquanto, "while"))
        {
+           traduz("(");
+           if(condicao(enquanto) && NmatchL(":", enquanto))
+           {
+             traduz(")");  
+           }
+           traduz("\n{");
            if(bloco(enquanto))
            {
+               traduz("\n}");
                return true;
            }
        }
-       erroL("while() format", enquanto);
+       erroL("enquanto() format", enquanto);
        return false;
     }
     
     public boolean para(Node node)
     {
        Node para = node.addNode("para");
-       if(NmatchL("para", para, token.lexema) && NmatchL("(", para, token.lexema) && atribuicao(para) && NmatchL(";", para, token.lexema) && condicao(para) && 
-         NmatchL(";", para, token.lexema) && somatorio(para) && NmatchL(")", para, token.lexema)  && NmatchL(":", para))
+       if(NmatchL("para", para, "for") && NmatchL("(", para, token.lexema) && atribuicao(para) &&
+          NmatchL(";", para) && condicao(para) &&  NmatchL(";", para, token.lexema) && somatorio(para) && 
+          NmatchL(")", para, token.lexema)  && NmatchL(":", para))
        {
-           traduz("\n{\n");
+           traduz("\n{");
            if(bloco(para))
            {
                traduz("\n}");
                return true;
            }
        }
-       erroL("for() format", para);
+       erroL("para() format", para);
        return false;
     }
     
@@ -555,26 +583,26 @@ public class Parser
     {
         Node leitura = node.addNode("leitura");
 
-        if (NmatchL("leitura", leitura, token.lexema) && NmatchL("(", leitura, token.lexema)) 
+        if (NmatchL("leitura", leitura, "scanf") && NmatchL("(", leitura, token.lexema)) 
         {
-            if (reservadaTipo(leitura)) 
+            if (traduzTipo(leitura)) 
             {
                 while (NmatchL(",", leitura, token.lexema)) 
                 {
-                    if (!reservadaTipo(leitura)) 
+                    if (!traduzTipo(leitura)) 
                     {
                         erro("Esperado tipo de leitura após vírgula");
                         return false;
                     }
                 }
 
-                if (NmatchL(")", leitura, token.lexema) && NmatchL("(", leitura, token.lexema)) 
+                if (NmatchL(")", leitura, ",") && NmatchL("(", leitura)) 
                 {
-                    if (tipo(leitura)) 
+                    if(traduzVar(leitura)) 
                     {
                         while (NmatchL(",", leitura, token.lexema)) 
                         {
-                            if (!tipo(leitura)) 
+                            if (!traduzVar(leitura)) 
                             {
                                 erro("Esperado variável de leitura após vírgula");
                                 return false;

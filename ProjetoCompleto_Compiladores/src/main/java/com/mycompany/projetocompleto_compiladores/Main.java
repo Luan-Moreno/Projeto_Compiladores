@@ -52,7 +52,7 @@ public class Main
             System.out.println(token);
         }
         
-        System.out.println("\nLexicamente Correto\n");
+        System.out.println("\nLexicamente Correto");
 
         Parser parser = new Parser(tokens);
         Tree tree = parser.mainParse();
