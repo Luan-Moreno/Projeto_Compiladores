@@ -33,19 +33,16 @@ Sexta-feira:
 - [X] PDF: Verificar a Recursão / Fatoração à esquerda nas Gramáticas
 
 Sábado:
-- [ ] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
-- [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
-- https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
-- [ ] Compilador: Realizar a conversão para C das palavras reservadas específicas
-- [ ] Compilador: Realizar a conversão para C dos tipos específicos
+- [X] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
+- [X] Compilador: Realizar a conversão para C das palavras reservadas específicas
+- [X] Compilador: Realizar a conversão para C dos tipos específicos
 - [ ] Compilador: Realizar a conversão para C dos formatos específicos (ifelse, while, for, leitura, impressao)
-- [ ] PDF: Terminar PDF (Instruções de execução, Exemplos de código) 
 
 Domingo:
-- [ ] Semântico: Verificar declaração de variáveis (Garantir que não seja definida duas vezes)
-- [ ] Semântico: Verificar se operações são possíveis em certo contexto (Analisar escopo)
-- [ ] Adicionais (se der tempo): Criar novas regras (Funções)
-- [ ] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem
+- [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
+- https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
+- [ ] PDF: Terminar PDF (Instruções de execução, Exemplos de código) 
+- [ ] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem pelo Java
 - [ ] Preparar apresentação
 - [ ] Enviar arquivo no Moodle Zipado
 
