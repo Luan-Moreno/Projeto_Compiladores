@@ -32,12 +32,12 @@ public class Parser
     
     public void erroT(String tipo, Node node)
     {
-        node.addNode("ERROR: Expected " + tipo + "| Received: " + token.tipo);
+        node.addNode("ERRO: Esperado " + tipo + "| Recebido: " + token.tipo);
     }
     
     public void erroL(String lexema, Node node)
     {
-        node.addNode("ERROR: Expected " + lexema + "| Received: " + token.lexema);
+        node.addNode("ERRO: Esperado " + lexema + "| Recebido: " + token.lexema);
     }
     
     public Tree mainParse() 
@@ -156,51 +156,65 @@ public class Parser
         
         return false;
     }
-      
+    
     public boolean bloco(Node node) 
+{
+    Node bloco = node.addNode("bloco");
+
+    while (true) 
     {
-        Node bloco = node.addNode("bloco");
-
-        if (Nverify("id", bloco, true)) 
+        if (NmatchT("reservada_saida", bloco)) 
         {
-            traduz("\n");
-            return expressao(bloco);  
+            break;
         }
-
-        if (Nverify("if", bloco, false)) 
+        
+        if (Nverify("caso", bloco, false)) 
         {
             traduz("\n");
-            return ifelse(bloco);
+            if (!ifelse(bloco)) return false;
+            continue;
         }
 
         if (Nverify("enquanto", bloco, false)) 
         {
             traduz("\n");
-            return enquanto(bloco); 
+            if (!enquanto(bloco)) return false;
+            continue;
         }
 
         if (Nverify("para", bloco, false)) 
         {
             traduz("\n");
-            return para(bloco); 
-        }
-        
-        if(Nverify("impressao", bloco, false)) 
-        {
-            traduz("\n");
-            return impressao(bloco);
-        }
-        
-        if(Nverify("leitura", bloco, false)) 
-        {
-            traduz("\n");
-            return leitura(bloco);
+            if (!para(bloco)) return false;
+            continue;
         }
 
-        return false;
+        if (Nverify("impressao", bloco, false)) 
+        {
+            traduz("\n");
+            if (!impressao(bloco)) return false;
+            continue;
+        }
+
+        if (Nverify("leitura", bloco, false)) 
+        {
+            traduz("\n");
+            if (!leitura(bloco)) return false;
+            continue;
+        }
+
+        if (Nverify("id", bloco, true)) 
+        {
+            traduz("\n");
+            if (!expressao(bloco)) return false;
+            continue;
+        }
+
+        break;
     }
-  
-    
+
+    return true;
+}
 
     public boolean blocoInicial(Node node) 
     {
@@ -208,6 +222,7 @@ public class Parser
 
         while (!Nverify("EOF", blocoinicial, true)) 
         {
+            
             if (verificaTipo(blocoinicial)) 
             {    
                 if (!atribuicao(blocoinicial)) return false;
@@ -229,7 +244,7 @@ public class Parser
                 continue;
             }
 
-            if (Nverify("if", blocoinicial, false)) 
+            if (Nverify("caso", blocoinicial, false)) 
             {
                 if (!ifelse(blocoinicial)) return false;
                 traduz("\n");
@@ -296,16 +311,18 @@ public class Parser
     public boolean tipo(Node node)
     {
         Node tipo = node.addNode("tipo");
-        return (NmatchT("tipo_booleano", tipo, token.lexema) || 
+        return (NmatchL("Verdadeiro", tipo, "true") ||
+                NmatchL("Falso", tipo, "false") ||
                 NmatchT("num", tipo, token.lexema)  ||
-                NmatchT("char", tipo, token.lexema) || 
-                NmatchT("string", tipo, token.lexema) || id(tipo));
+                NmatchT("car", tipo, token.lexema) || 
+                NmatchT("texto", tipo, token.lexema) || id(tipo));
     }
     
     public boolean traduzVar(Node node)
     {
         Node tipo = node.addNode("tipo");
-        return (NmatchT("tipo_booleano", tipo, "&" + token.lexema) || 
+        return (NmatchL("Verdadeiro", tipo, "true") ||
+                NmatchL("Falso", tipo, "false") || 
                 NmatchT("num", tipo, "&" + token.lexema)  ||
                 NmatchT("char", tipo, "&" + token.lexema) || 
                 NmatchT("string", tipo, "&" + token.lexema) || traduzId(tipo));
@@ -315,10 +332,10 @@ public class Parser
     {
         Node reservadaTipo = node.addNode("reservadaTipo");
         return NmatchT("reservada_tipo_inteiro", reservadaTipo, token.lexema + " ") || 
-               NmatchT("reservada_tipo_decimal", reservadaTipo, token.lexema+ " ") || 
-               NmatchT("reservada_tipo_texto", reservadaTipo, token.lexema+ " ") || 
-               NmatchT("reservada_tipo_caracter", reservadaTipo, token.lexema+ " ") || 
-               NmatchT("reservada_tipo_booleano", reservadaTipo, token.lexema+ " "); 
+               NmatchT("reservada_tipo_decimal", reservadaTipo, "float"+ " ") || 
+               NmatchT("reservada_tipo_texto", reservadaTipo, "char[]"+ " ") || 
+               NmatchT("reservada_tipo_caracter", reservadaTipo, "char"+ " ") || 
+               NmatchT("reservada_tipo_binario", reservadaTipo, "bool"+ " "); 
     }
     
     public boolean verificaTipo(Node node)
@@ -328,7 +345,7 @@ public class Parser
                Nverify("reservada_tipo_decimal", verificaTipo, true) || 
                Nverify("reservada_tipo_texto", verificaTipo, true) || 
                Nverify("reservada_tipo_caracter", verificaTipo, true) || 
-               Nverify("reservada_tipo_booleano", verificaTipo, true); 
+               Nverify("reservada_tipo_binario", verificaTipo, true); 
     }
     
     public boolean traduzTipo(Node node)
@@ -362,12 +379,12 @@ public class Parser
             traduz("\"");
             return NmatchT("reservada_tipo_caracter", reservadaTipo);
         }
-        if(Nverify("reservada_tipo_booleano", reservadaTipo, true))
+        if(Nverify("reservada_tipo_binario", reservadaTipo, true))
         {
             traduz("\"");
             traduz("%d");
             traduz("\"");
-            return NmatchT("reservada_tipo_booleano", reservadaTipo);
+            return NmatchT("reservada_tipo_binario", reservadaTipo);
         }
         return false;
     }
@@ -475,7 +492,7 @@ public class Parser
             traduz(";");
             return true;
         }
-        erroT("Definition with correct types: int, float, string, char or bool", atribuicao);
+        erroT("Definição com tipos existentes: int, dec, texto, car ou bin", atribuicao);
         return false;
     }
     
@@ -487,7 +504,7 @@ public class Parser
             traduz(";");
             return true;
         }
-        erroT("Expression of type: id = num/bool/string/char", expressao);
+        erroT("Expressão do formato: id = num/bin/texto/car", expressao);
         return false;
     }
     
@@ -499,26 +516,26 @@ public class Parser
         {
             return true;
         }
-        erroL("Sum of type: id++ / id--", somatorio);
+        erroL("Somatório do tipo: id++ / id--", somatorio);
         return false;
     }
     
     public boolean ifelse(Node node)
     {
         Node ifelse = node.addNode("condicional");
-        if (NmatchL("if", ifelse, token.lexema))
+        if (NmatchL("caso", ifelse, "if"))
         {
             traduz("(");
             if(condicao(ifelse))
             {
                 traduz(")");
                 traduz("\n{");
-                if(NmatchL("then", ifelse))
+                if(NmatchL("entao", ifelse))
                 {
                     if(bloco(ifelse))
                     {
                         traduz("\n}");
-                        if(NmatchL("else", ifelse, "\n" + token.lexema)) 
+                        if(NmatchL("senao", ifelse, "\nelse")) 
                         {
                             traduz("\n{");
                             if(bloco(ifelse)) 
@@ -535,7 +552,7 @@ public class Parser
             }
             return false;
         }
-        erroL("ifelse() format", ifelse);
+        erroL("formato caso-senao()", ifelse);
         return false;
     }
     
@@ -556,7 +573,7 @@ public class Parser
                return true;
            }
        }
-       erroL("enquanto() format", enquanto);
+       erroL("formato enquanto() ", enquanto);
        return false;
     }
     
@@ -574,7 +591,7 @@ public class Parser
                return true;
            }
        }
-       erroL("para() format", para);
+       erroL("formato para() ", para);
        return false;
     }
     
@@ -622,21 +639,49 @@ public class Parser
     erroL("Formato de leitura esperado: leitura(tipo1, tipo2, ...)(variavel1, variavel2, ...)", leitura);
     return false;
 }
-
-      
-    public boolean impressao(Node node)
+    public boolean impressao(Node node) 
     {
-       Node impressao = node.addNode("impressao");
-       if(NmatchL("impressao", impressao, "printf") && NmatchL("(", impressao, token.lexema) &&
-               traduzTipo(impressao) && NmatchL(",", impressao, token.lexema) &&
-               tipo(impressao) && NmatchL(")", impressao, token.lexema))
-       {
-           traduz(";");
-           return true;
-       }
-       erroL("impressao() format", impressao);
-       return false;
-    }
+        Node impressao = node.addNode("impressao");
+
+        if (NmatchL("impressao", impressao, "printf") && NmatchL("(", impressao, token.lexema)) 
+        {
+            if (traduzTipo(impressao)) 
+            {
+                while (NmatchL(",", impressao, token.lexema)) 
+                {
+                    if (!traduzTipo(impressao)) 
+                    {
+                        erroL("formato impressao() ", impressao);
+                        return false;
+                    }
+                }
+
+                if (NmatchL(")", impressao, ",") && NmatchL("(", impressao)) 
+                {
+                if(tipo(impressao)) 
+                {
+                    while (NmatchL(",",impressao, token.lexema)) 
+                    {
+                        if (!tipo(impressao)) 
+                        {
+                            erroL("formato impressao() ", impressao);
+                            return false;
+                        }
+                    }
+
+                    if (NmatchL(")", impressao, token.lexema)) 
+                    {
+                        traduz(";");
+                        return true;
+                    }
+                }
+                }
+            }
+        }
+    
+    erroL("Formato de impressao esperado: impressao(tipo1, tipo2, ...) (variavel1, variavel2, ...)", impressao);
+    return false;
+}
     
     boolean primeiraVez = true;
 

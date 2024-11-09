@@ -14,7 +14,7 @@ public class Text extends AFD
             if(code.current() != ' ')
             {
                 String texto = readString(code);
-                return new Token("string", texto);
+                return new Token("texto", texto);
             }
         }
         
@@ -28,7 +28,7 @@ public class Text extends AFD
             if(code.current() != '\''){return null;}
             caracter += '\'';
             code.next();
-            return new Token("char", caracter);
+            return new Token("car", caracter);
         }
         
         return null;

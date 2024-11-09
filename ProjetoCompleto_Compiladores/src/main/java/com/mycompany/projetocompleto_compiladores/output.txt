@@ -4,18 +4,26 @@
 int main()
 {
 int x=1;
+float x=2.22;
+bool x=false;
+char x='x';
+char[] x="abc";
 if(x==1)
 {
 x=2;
 }
 else
 {
-printf("%d",x);
-}
-scanf("%d","%f","%d",&a,&b,&c);
 for(int x=2;x>=0;x++)
 {
 x=3;
 }
+while(x>3)
+{
+y=2;
+}
+}
+printf("%d","%f","%d",a,b,c);
+scanf("%d","%f","%d",&a,&b,&c);
 return 0;
 }

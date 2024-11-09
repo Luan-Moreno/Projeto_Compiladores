@@ -1,9 +1,19 @@
-int x = 1 
-if x == 1 then
-    x = 2 
-else 
-    impressao(int,x)
-    leitura(int,float,bool)(a,b,c)
+int x = 1
+dec x = 2.22
+bin x = Falso
+car x = 'x'
+texto x = "abc"
+caso x == 1 entao
+    x = 2
+senao
+    para(int x = 2; x >= 0; x++):
+        x = 3
+        saida
+    enquanto x > 3:
+        y = 2
+        saida
+saida
 
-para (int x = 2; x >= 0; x++):
-x = 3
+impressao(int,dec,bin)(a,b,c)
+leitura(int,dec,bin)(a,b,c)
+

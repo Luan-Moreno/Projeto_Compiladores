@@ -11,19 +11,24 @@ public class Reservada extends AFD
       {
         this.posicaoInicial = code.getIndex();
         
-        if(matchC(code, 'i') && matchC(code, 'f'))
+        if(matchC(code, 'c') && matchC(code, 'a') && matchC(code, 's') && matchC(code, 'o'))
         {
-            return new Token("reservada", "if");
+            return new Token("reservada", "caso");
         }
         
-        if(matchC(code, 'e') && matchC(code, 'l') && matchC(code, 's') && matchC(code, 'e'))
+        if(matchC(code, 's') && matchC(code, 'e') && matchC(code, 'n') && matchC(code, 'a') && matchC(code, 'o'))
         {
-            return new Token("reservada", "else");
+            return new Token("reservada", "senao");
         }
         
-        if(matchC(code, 't') && matchC(code, 'h') && matchC(code, 'e') && matchC(code, 'n') && matchC(code, ' '))
+        if(matchC(code, 'e') && matchC(code, 'n') && matchC(code, 't') && matchC(code, 'a') && matchC(code, 'o'))
         {
-            return new Token("reservada", "then");
+            return new Token("reservada", "entao");
+        }
+        
+        if(matchC(code, 's') && matchC(code, 'a') && matchC(code, 'i') && matchC(code, 'd') && matchC(code, 'a'))
+        {
+            return new Token("reservada_saida", "saida");
         }
         
         if(matchC(code, 'e') && matchC(code, 'n') && matchC(code, 'q') && matchC(code, 'u') && matchC(code, 'a') && matchC(code, 'n') && matchC(code, 't') && matchC(code, 'o'))
@@ -51,34 +56,35 @@ public class Reservada extends AFD
             return new Token("reservada_tipo_inteiro", "int");
         }
         
-        if(matchC(code, 'f') && matchC(code, 'l')  && matchC(code, 'o')  && matchC(code, 'a') && matchC(code, 't'))
+        if(matchC(code, 'd') && matchC(code, 'e')  && matchC(code, 'c'))
         {
-            return new Token("reservada_tipo_decimal", "float");
+            return new Token("reservada_tipo_decimal", "dec");
         }
         
-        if(matchC(code, 's') && matchC(code, 't')  && matchC(code, 'r')  && matchC(code, 'i') && matchC(code, 'n') && matchC(code, 'g'))
+        if(matchC(code, 't') && matchC(code, 'e')  && matchC(code, 'x')  && matchC(code, 't') && matchC(code, 'o'))
         {
-            return new Token("reservada_tipo_texto", "string");
+            return new Token("reservada_tipo_texto", "texto");
         }
         
-        if(matchC(code, 'c') && matchC(code, 'h')  && matchC(code, 'a')  && matchC(code, 'r'))
+        if(matchC(code, 'c')  && matchC(code, 'a')  && matchC(code, 'r'))
         {
-            return new Token("reservada_tipo_caracter", "char");
+            return new Token("reservada_tipo_caracter", "car");
         }
         
-        if(matchC(code, 'b') && matchC(code, 'o')  && matchC(code, 'o')  && matchC(code, 'l'))
+        if(matchC(code, 'b') && matchC(code, 'i')  && matchC(code, 'n'))
         {
-            return new Token("reservada_tipo_booleano", "bool");
+            return new Token("reservada_tipo_binario", "bin");
         }
         
-        if(matchC(code, 'T') && matchC(code, 'r')  && matchC(code, 'u')  && matchC(code, 'e'))
+        if(matchC(code, 'V') && matchC(code, 'e')  && matchC(code, 'r')  && matchC(code, 'd') && matchC(code, 'a') && 
+           matchC(code, 'd') && matchC(code, 'e') && matchC(code, 'i') && matchC(code, 'r') && matchC(code, 'o')) 
         {
-            return new Token("tipo_booleano", "True");
+            return new Token("tipo_binario", "Verdadeiro");
         }
         
-        if(matchC(code, 'F') && matchC(code, 'a')  && matchC(code, 'l')  && matchC(code, 's') && matchC(code, 'e'))
+        if(matchC(code, 'F') && matchC(code, 'a')  && matchC(code, 'l')  && matchC(code, 's') && matchC(code, 'o'))
         {
-            return new Token("tipo_booleano", "False");
+            return new Token("tipo_binario", "Falso");
         }
         
         
