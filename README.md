@@ -36,7 +36,7 @@ Sábado:
 - [X] Linguagem: Modificar comandos padrões para comandos específicos da nossa linguagem
 - [X] Compilador: Realizar a conversão para C das palavras reservadas específicas
 - [X] Compilador: Realizar a conversão para C dos tipos específicos
-- [ ] Compilador: Realizar a conversão para C dos formatos específicos (ifelse, while, for, leitura, impressao)
+- [X] Compilador: Realizar a conversão para C dos formatos específicos (ifelse, while, for, leitura, impressao)
 
 Domingo:
 - [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
