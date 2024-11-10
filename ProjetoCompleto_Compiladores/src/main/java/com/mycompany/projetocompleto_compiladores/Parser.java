@@ -69,19 +69,6 @@ public class Parser
        return null;
     }
     
-    public boolean matchL(String lexema, Node node, String newcode)
-    {
-        if(token.lexema.equals(lexema))
-        {
-            node.addNode(token.lexema);
-            traduz(newcode);
-            token = getNextToken();
-            return true;
-        }
-        erroL(lexema, node);
-        return false;
-    }
-    
     public boolean NmatchL(String lexema, Node node)
     {
         if(token.lexema.equals(lexema))
@@ -102,19 +89,6 @@ public class Parser
             token = getNextToken();
             return true;
         }
-        return false;
-    }
-    
-    public boolean matchT(String tipo, Node node, String newcode)
-    {
-        if(token.tipo.equals(tipo))
-        {
-            node.addNode(token.lexema);
-            traduz(newcode);
-            token = getNextToken();
-            return true;
-        }
-        erroT(tipo, node);
         return false;
     }
     
