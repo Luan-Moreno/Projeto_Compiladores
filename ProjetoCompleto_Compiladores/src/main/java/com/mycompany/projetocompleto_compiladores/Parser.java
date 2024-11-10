@@ -8,6 +8,8 @@ public class Parser
 {
     List<Token> tokens;
     Token token;
+    public boolean sintatico;
+    public String erroSintatico = "";
 
     public Parser(List<Token> tokens) 
     {
@@ -28,16 +30,20 @@ public class Parser
         System.out.println("Sintaticamente Incorreto\n");
         System.out.println("Regra: " + regra);
         System.out.println("Token Invalido: " + token.lexema);
+        sintatico = false;
+        erroSintatico = erroSintatico + "\nERRO SINTÁTICO: Token Invalido: " + token.lexema;
     }
     
     public void erroT(String tipo, Node node)
     {
         node.addNode("ERRO: Esperado " + tipo + "| Recebido: " + token.tipo);
+        erroSintatico = erroSintatico + "\nERRO SINTÁTICO: Esperado " + tipo + "| Recebido: " + token.tipo;
     }
     
     public void erroL(String lexema, Node node)
     {
         node.addNode("ERRO: Esperado " + lexema + "| Recebido: " + token.lexema);
+        erroSintatico = erroSintatico + "\nERRO SINTÁTICO: Esperado " + lexema + "| Recebido: " + token.lexema;
     }
     
     public Tree mainParse() 
@@ -56,6 +62,7 @@ public class Parser
               traduz("}");
               System.out.println("Sintaticamente Correto\n");
               root.addNode("fim do programa");
+              sintatico = true;
               return new Tree(root);
               
           }
@@ -66,6 +73,7 @@ public class Parser
            root.addNode("fim do programa");
            return new Tree(root);
        }
+       sintatico = false;
        return null;
     }
     
@@ -660,7 +668,7 @@ public class Parser
     
     boolean primeiraVez = true;
 
-    private void traduz(String code) 
+    public void traduz(String code) 
     {
         if(primeiraVez)
         {
