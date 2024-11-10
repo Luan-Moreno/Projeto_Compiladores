@@ -39,11 +39,10 @@ Sábado:
 - [X] Compilador: Realizar a conversão para C dos formatos específicos (ifelse, while, for, leitura, impressao)
 
 Domingo:
-- [ ] PDF: Construção do PDF (Resumo, Introdução, Expressões Regulares, Gramáticas)
+- [ ] PDF: Construção do PDF
 - https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
-- [ ] PDF: Terminar PDF (Instruções de execução, Exemplos de código) 
 - [ ] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem pelo Java
-- [ ] Preparar apresentação
+- [ ] Preparar apresentação (Alguns slides)
 - [ ] Enviar arquivo no Moodle Zipado
 
 
