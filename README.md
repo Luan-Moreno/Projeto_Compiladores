@@ -39,9 +39,9 @@ Sábado:
 - [X] Compilador: Realizar a conversão para C dos formatos específicos (ifelse, while, for, leitura, impressao)
 
 Domingo:
+- [X] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem pelo Java
 - [ ] PDF: Construção do PDF
 - https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
-- [ ] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem pelo Java
 - [ ] Preparar apresentação (Alguns slides)
 - [ ] Enviar arquivo no Moodle Zipado
 
