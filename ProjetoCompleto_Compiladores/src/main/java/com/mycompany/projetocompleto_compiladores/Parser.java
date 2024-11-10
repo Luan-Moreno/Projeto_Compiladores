@@ -158,63 +158,63 @@ public class Parser
     }
     
     public boolean bloco(Node node) 
-{
-    Node bloco = node.addNode("bloco");
-
-    while (true) 
     {
-        if (NmatchT("reservada_saida", bloco)) 
+        Node bloco = node.addNode("bloco");
+
+        while (true) 
         {
+            if (NmatchT("reservada_saida", bloco)) 
+            {
+                break;
+            }
+
+            if (Nverify("caso", bloco, false)) 
+            {
+                traduz("\n");
+                if (!ifelse(bloco)) return false;
+                continue;
+            }
+
+            if (Nverify("enquanto", bloco, false)) 
+            {
+                traduz("\n");
+                if (!enquanto(bloco)) return false;
+                continue;
+            }
+
+            if (Nverify("para", bloco, false)) 
+            {
+                traduz("\n");
+                if (!para(bloco)) return false;
+                continue;
+            }
+
+            if (Nverify("impressao", bloco, false)) 
+            {
+                traduz("\n");
+                if (!impressao(bloco)) return false;
+                continue;
+            }
+
+            if (Nverify("leitura", bloco, false)) 
+            {
+                traduz("\n");
+                if (!leitura(bloco)) return false;
+                continue;
+            }
+
+            if (Nverify("id", bloco, true)) 
+            {
+                traduz("\n");
+                if (!expressao(bloco)) return false;
+                continue;
+            }
+
             break;
         }
-        
-        if (Nverify("caso", bloco, false)) 
-        {
-            traduz("\n");
-            if (!ifelse(bloco)) return false;
-            continue;
-        }
 
-        if (Nverify("enquanto", bloco, false)) 
-        {
-            traduz("\n");
-            if (!enquanto(bloco)) return false;
-            continue;
-        }
-
-        if (Nverify("para", bloco, false)) 
-        {
-            traduz("\n");
-            if (!para(bloco)) return false;
-            continue;
-        }
-
-        if (Nverify("impressao", bloco, false)) 
-        {
-            traduz("\n");
-            if (!impressao(bloco)) return false;
-            continue;
-        }
-
-        if (Nverify("leitura", bloco, false)) 
-        {
-            traduz("\n");
-            if (!leitura(bloco)) return false;
-            continue;
-        }
-
-        if (Nverify("id", bloco, true)) 
-        {
-            traduz("\n");
-            if (!expressao(bloco)) return false;
-            continue;
-        }
-
-        break;
+        return true;
     }
-
-    return true;
-}
 
     public boolean blocoInicial(Node node) 
     {
@@ -511,8 +511,7 @@ public class Parser
     public boolean somatorio(Node node)
     {
         Node somatorio = node.addNode("somatorio");
-        if (NmatchT("id", somatorio, token.lexema) && ((NmatchL("+", somatorio, token.lexema) && (NmatchL("+", somatorio, token.lexema))) || 
-            NmatchL("-", somatorio, token.lexema) && NmatchL("-", somatorio, token.lexema)))
+        if (NmatchT("id", somatorio, token.lexema) && (NmatchL("++", somatorio, token.lexema) || NmatchL("--", somatorio, token.lexema)))
         {
             return true;
         }
@@ -542,7 +541,8 @@ public class Parser
                             {
                                 traduz("\n}");
                                 return true;
-                            } 
+                            }
+                            return false;
                         }
                         return true;
                     }
@@ -636,9 +636,9 @@ public class Parser
             }
         }
     
-    erroL("Formato de leitura esperado: leitura(tipo1, tipo2, ...)(variavel1, variavel2, ...)", leitura);
-    return false;
-}
+        erroL("Formato de leitura esperado: leitura(tipo1, tipo2, ...)(variavel1, variavel2, ...)", leitura);
+        return false;
+    }
     public boolean impressao(Node node) 
     {
         Node impressao = node.addNode("impressao");
@@ -679,9 +679,9 @@ public class Parser
             }
         }
     
-    erroL("Formato de impressao esperado: impressao(tipo1, tipo2, ...) (variavel1, variavel2, ...)", impressao);
-    return false;
-}
+        erroL("Formato de impressao esperado: impressao(tipo1, tipo2, ...) (variavel1, variavel2, ...)", impressao);
+        return false;
+    }
     
     boolean primeiraVez = true;
 

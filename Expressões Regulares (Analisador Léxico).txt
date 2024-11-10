@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-if|else|then|while|for|leitura|impressao|int|float|string|char|bool|True|False (Reservada)
+caso|senao|entao|saida|enquanto|para|leitura|impressao|int|dec|texto|car|bin|Verdadeiro|Falso (Reservada)
 ------------------------------------------------------------------------------------------
 [0-9]+ (Inteiro)
 ------------------------------------------------------------------------------------------

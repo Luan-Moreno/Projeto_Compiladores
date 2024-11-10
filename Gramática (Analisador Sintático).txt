@@ -1,18 +1,22 @@
 main -> blocoinicial
 
-blocoinicial -> atribuicao | expressao | conta | ifelse | enquanto | para | impressao | leitura
+blocoInicial -> (atribuicao | expressao | conta | ifelse | enquanto | para | impressao | leitura)* EOF
 
-atribuicao -> reservadaTipo "=" [tipo | conta]
+bloco -> (atribuicao | expressao | conta | ifelse | enquanto | para | impressao | leitura)* saida
 
-reservadaTipo -> reservada_tipo_inteiro | reservada_tipo_decimal | reservada_tipo_texto | reservada_tipo_caracter | reservada_tipo_booleano
+atribuicao -> reservadaTipo id "=" (tipo | conta)
 
-tipo -> tipo_booleano | num | char | string | id
+reservadaTipo -> reservada_tipo_inteiro | reservada_tipo_decimal | reservada_tipo_texto | reservada_tipo_caracter | reservada_tipo_binario
 
-conta -> termo [operador_soma_subtracao termo]*
+tipo -> "Verdadeiro" | "Falso" | num | car | texto | id
 
-termo -> fator [operador_multiplicacao_divisao fator]*
+conta -> termo (operador_soma_subtracao termo)*
 
-fator -> num | id | "(" expressao ")"
+termo -> fator (operador_multiplicacao_divisao fator)*
+
+fator -> num | id | "(" conta ")"
+
+operador -> ">"|">="|"<"|"<="|"=="|"!=" 
 
 operador_soma_subtracao -> "+" | "-"
 
@@ -24,14 +28,16 @@ id -> [a-zA-Z0-9] [a-zA-Z0-9]*
 
 expressao -> id "=" tipo
 
-ifelse -> "if" condicao "then" bloco ["else" [bloco|expressao] | e]
+ifelse -> "caso" condicao "entao" bloco ("senao" bloco)?
 
-condicao -> id operador [tipo | conta]
+condicao -> id operador (tipo | conta)
 
-enquanto -> "while" condicao ":" bloco
+enquanto -> "enquanto" condicao ":" bloco
 
-para -> "for" "(" atribuicao ";" condicao ";" somatorio ")" ":"
+para -> "para" "(" atribuicao ";" condicao ";" somatorio ")" ":"
 
-impressao -> "impressao" "(" tipo ")"
+somatorio -> id("++"|"--")
 
-leitura -> "leitura" "(" reservadaTipo ["," reservadaTipo]* ")" "(" tipo ["," tipo]* ")"
+leitura -> "leitura" "(" reservadaTipo ("," reservadaTipo)* ")" "(" tipo ("," tipo)* ")"
+
+impressao -> "impressao" "(" reservadaTipo ("," reservadaTipo)* ")" "(" tipo ("," tipo)* ")"
