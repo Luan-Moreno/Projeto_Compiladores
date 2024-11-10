@@ -511,7 +511,8 @@ public class Parser
     public boolean somatorio(Node node)
     {
         Node somatorio = node.addNode("somatorio");
-        if (NmatchT("id", somatorio, token.lexema) && (NmatchL("++", somatorio, token.lexema) || NmatchL("--", somatorio, token.lexema)))
+        if (NmatchT("id", somatorio, token.lexema) && ((NmatchL("+", somatorio, token.lexema) && (NmatchL("+", somatorio, token.lexema))) || 
+            NmatchL("-", somatorio, token.lexema) && NmatchL("-", somatorio, token.lexema)))
         {
             return true;
         }

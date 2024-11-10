@@ -10,7 +10,7 @@ caso|senao|entao|saida|enquanto|para|leitura|impressao|int|dec|texto|car|bin|Ver
 '[a-zA-Z0-9]' (Char)
 "[a-zA-Z0-9]+" (String)
 ------------------------------------------------------------------------------------------
-[a-zA-Z0-9] [a-zA-Z0-9]* (Variável)
+[a-zA-Z] [a-zA-Z0-9]* (Variável)
 [a-zA-Z] (Letra) 
 [0-9] (Digito)
 ------------------------------------------------------------------------------------------
