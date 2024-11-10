@@ -79,7 +79,7 @@ public class Main
                 {
                     lexico = false;
                     saida.setForeground(Color.RED);
-                    saida.setText("Erro léxico: " + ex.getMessage());
+                    saida.setText("ERRO LÉXICO: " + ex.getMessage());
                 }
                 
                 System.out.println("\nLexicamente Correto");
