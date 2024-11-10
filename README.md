@@ -40,10 +40,10 @@ Sábado:
 
 Domingo:
 - [X] Adicionais (se der tempo): Criar uma Mini IDE simples para nossa linguagem pelo Java
-- [ ] PDF: Construção do PDF
+- [X] PDF: Construção do PDF
 - https://docs.google.com/document/d/1qDQRrpPi6gwJ2vP8UF0EdAmZjgRsgaS5Gt6XXoQzFwo/edit?usp=sharing 
-- [ ] Preparar apresentação (Alguns slides)
 - [ ] Enviar arquivo no Moodle Zipado
+- [ ] Preparar apresentação (Alguns slides)
 
 
 
