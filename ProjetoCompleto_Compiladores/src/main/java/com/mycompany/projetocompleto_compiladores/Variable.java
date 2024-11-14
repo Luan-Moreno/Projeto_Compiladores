@@ -46,6 +46,8 @@ public class Variable extends AFD
                 code.current() == ')'||
                 code.current() == ','||
                 code.current() == ';'||
+                code.current() == '['||
+                code.current() == ']'||
                 code.current() == CharacterIterator.DONE;
     }
 }

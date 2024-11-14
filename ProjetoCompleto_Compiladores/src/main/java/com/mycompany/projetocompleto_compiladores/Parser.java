@@ -315,7 +315,7 @@ public class Parser
         Node reservadaTipo = node.addNode("reservadaTipo");
         return NmatchT("reservada_tipo_inteiro", reservadaTipo, token.lexema + " ") || 
                NmatchT("reservada_tipo_decimal", reservadaTipo, "float"+ " ") || 
-               NmatchT("reservada_tipo_texto", reservadaTipo, "char[]"+ " ") || 
+               NmatchT("reservada_tipo_texto", reservadaTipo, "char"+ " ") || 
                NmatchT("reservada_tipo_caracter", reservadaTipo, "char"+ " ") || 
                NmatchT("reservada_tipo_binario", reservadaTipo, "bool"+ " "); 
     }
@@ -336,35 +336,35 @@ public class Parser
         if(Nverify("reservada_tipo_inteiro", reservadaTipo, true))
         {
             traduz("\"");
-            traduz("%d");
-            traduz("\"");
+            traduz("%d ");
+            traduz("\" ");
             return NmatchT("reservada_tipo_inteiro", reservadaTipo);
         }
         if(Nverify("reservada_tipo_decimal", reservadaTipo, true))
         {
             traduz("\"");
-            traduz("%f");
-            traduz("\"");
+            traduz("%f ");
+            traduz("\" ");
             return NmatchT("reservada_tipo_decimal", reservadaTipo);
         }
         if(Nverify("reservada_tipo_texto", reservadaTipo, true))
         {
             traduz("\"");
-            traduz("%c");
-            traduz("\"");
+            traduz("%s ");
+            traduz("\" ");
             return NmatchT("reservada_tipo_texto", reservadaTipo);
         }
         if(Nverify("reservada_tipo_caracter", reservadaTipo, true))
         {
             traduz("\"");
-            traduz("%c");
-            traduz("\"");
+            traduz("%c ");
+            traduz("\" ");
             return NmatchT("reservada_tipo_caracter", reservadaTipo);
         }
         if(Nverify("reservada_tipo_binario", reservadaTipo, true))
         {
             traduz("\"");
-            traduz("%d");
+            traduz("%d ");
             traduz("\"");
             return NmatchT("reservada_tipo_binario", reservadaTipo);
         }
@@ -469,11 +469,19 @@ public class Parser
     public boolean atribuicao(Node node)
     {
         Node atribuicao = node.addNode("atribuicao");
-        if(reservadaTipo(atribuicao) && NmatchT("id", atribuicao, token.lexema) && NmatchL("=", atribuicao, "=") && (tipo(atribuicao) || conta(atribuicao)))
+        if(NmatchT("reservada_tipo_texto", atribuicao, "char"+ " ") && NmatchT("id", atribuicao, token.lexema) && NmatchL("[", atribuicao, "[") && 
+           NmatchL("]", atribuicao, "]") && NmatchL("=", atribuicao, "=") && (conta(atribuicao) || tipo(atribuicao)))
+        {
+           traduz(";");
+           return true;  
+        }
+        
+        if(reservadaTipo(atribuicao) && NmatchT("id", atribuicao, token.lexema) && NmatchL("=", atribuicao, "=") && conta(atribuicao))
         {
             traduz(";");
             return true;
         }
+        
         erroT("Definição com tipos existentes: int, dec, texto, car ou bin", atribuicao);
         return false;
     }
@@ -481,7 +489,7 @@ public class Parser
     public boolean expressao(Node node)
     {
         Node expressao = node.addNode("expressao");
-        if (NmatchT("id", expressao, token.lexema) && NmatchL("=", expressao, token.lexema) && tipo(expressao))
+        if (NmatchT("id", expressao, token.lexema) && NmatchL("=", expressao, token.lexema) && conta(expressao))
         {
             traduz(";");
             return true;
@@ -630,7 +638,7 @@ public class Parser
         {
             if (traduzTipo(impressao)) 
             {
-                while (NmatchL(",", impressao, token.lexema)) 
+                while (NmatchL(",", impressao)) 
                 {
                     if (!traduzTipo(impressao)) 
                     {

@@ -81,6 +81,13 @@ public class MathOperator extends AFD
                code.next();
                return new Token("virgula", ",");
             
+            case '[':
+               code.next();
+               return new Token("abre_car", "[");
+               
+            case ']':
+               code.next();
+               return new Token("fecha_car", "]");
            
            default:
                return null;

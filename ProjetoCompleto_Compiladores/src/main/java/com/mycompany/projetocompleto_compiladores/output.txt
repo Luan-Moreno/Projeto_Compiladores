@@ -3,22 +3,7 @@
 
 int main()
 {
-int a=0;
-float b=1.1;
-bool c=false;
-char d='x';
-char[] e="texto teste";
-while(c>10)
-{
-if(a==0)
-{
-scanf("%d",&f);
-for(int g=10;g>0;g--)
-{
-printf("%d",g);
-}
-}
-}
-scanf("%d",&c);
+char x[]="Hello World!";
+printf("%s " ,x);
 return 0;
 }
