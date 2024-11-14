@@ -461,9 +461,9 @@ public class Parser
     public boolean condicao(Node node) 
     {
         Node condicao = node.addNode("condicao");
-        return id(condicao)  && operador(condicao) &&
-               (tipo(condicao)|| 
-                conta(condicao));
+        return (id(condicao) || conta(condicao))  && operador(condicao) &&
+               (conta(condicao)|| 
+                tipo(condicao));
     }
 
     public boolean atribuicao(Node node)
